@@ -1,0 +1,722 @@
+<title>Chez Sulina</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Nunito:wght@400;600;700;800&family=Caveat:wght@500;700&family=Poiret+One&display=swap">
+<style>
+/* Layout: una "rue" verticale — ogni sezione è una vetrina: testo a sinistra, mock giocabile a destra; si impila su telefono. */
+:root{
+  --paper:#f2f5ef; --card:#ffffff; --ink:#22302b; --muted:#5a6a63; --line:#d6ddd3;
+  --accent:#2f5d50; --rose:#c9707f; --gold:#a87a2c; --chip:#e6ece4;
+  --sky:#cfe1e8; --stone:#ece5d7; --stone-line:#d8cfbd; --glass:#bcd4dc; --glass-hi:#e3f0f3;
+  --pave:#bdb8ae; --pave-line:#a49f95; --screen:#fbfaf6; --bezel:#2c3330;
+  --f-display:"Young Serif", Georgia, "Times New Roman", serif;
+  --f-body:"Nunito", "Segoe UI", system-ui, sans-serif;
+  --f-hand:"Caveat", "Comic Sans MS", cursive;
+  --f-deco:"Poiret One", "Futura", "Century Gothic", sans-serif;
+  --fa-wall:#2f5d50; --fa-deep:#1f4037; --aw1:#e7a1ad; --aw2:#fbf5ef; --fl1:#d6453d; --fl2:#ef7a6a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#121820; --card:#1a222b; --ink:#edf0ea; --muted:#9caaa4; --line:#2b3540;
+    --accent:#86c2ad; --rose:#eba4b0; --gold:#e3b660; --chip:#232d37;
+    --sky:#1b2742; --stone:#6c6762; --stone-line:#5b5651; --glass:#f0c777; --glass-hi:#ffe2a6;
+    --pave:#3a3e46; --pave-line:#2d3138; --screen:#1f2730; --bezel:#0b0f13;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#121820; --card:#1a222b; --ink:#edf0ea; --muted:#9caaa4; --line:#2b3540;
+  --accent:#86c2ad; --rose:#eba4b0; --gold:#e3b660; --chip:#232d37;
+  --sky:#1b2742; --stone:#6c6762; --stone-line:#5b5651; --glass:#f0c777; --glass-hi:#ffe2a6;
+  --pave:#3a3e46; --pave-line:#2d3138; --screen:#1f2730; --bezel:#0b0f13;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.6;
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-block:0 64px}
+.wrap{max-width:1080px; margin:0 auto}
+h1,h2,h3{font-family:var(--f-display); font-weight:400; text-wrap:balance; line-height:1.15; margin:0}
+h1{font-size:clamp(2.6rem, 7vw, 4.4rem)}
+h2{font-size:clamp(1.7rem, 3.6vw, 2.3rem)}
+h3{font-size:1.2rem}
+p{margin:0; max-width:64ch}
+.eyebrow{font-size:.78rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--accent)}
+.hand{font-family:var(--f-hand); font-size:1.45rem; color:var(--rose); line-height:1.1}
+.muted{color:var(--muted)}
+a{color:var(--accent)}
+
+/* hero */
+.hero{display:grid; grid-template-columns:1fr 1.15fr; gap:40px; align-items:center; padding-block:48px 24px}
+.hero-text{display:flex; flex-direction:column; gap:16px; min-width:0}
+.hero-text .lede{font-size:1.12rem}
+.tags{display:flex; flex-wrap:wrap; gap:8px}
+.tag{font-size:.82rem; font-weight:700; padding:4px 12px; border-radius:999px; background:var(--chip); color:var(--ink)}
+
+section{padding-block:56px 8px; display:flex; flex-direction:column; gap:24px; border-top:1px solid var(--line); margin-top:48px}
+.split{display:grid; grid-template-columns:1fr 1.2fr; gap:40px; align-items:start}
+.split > *{min-width:0}
+.stack{display:flex; flex-direction:column; gap:14px}
+
+/* scene frame */
+.scene{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px; display:flex; flex-direction:column; gap:12px}
+.scene svg{width:100%; height:auto; display:block; border-radius:8px}
+.caption{font-size:.85rem; color:var(--muted)}
+
+/* controls */
+.ctrl{display:flex; flex-direction:column; gap:6px}
+.ctrl-label{font-size:.72rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.chips{display:flex; flex-wrap:wrap; gap:6px}
+.chips button{font:inherit; font-size:.86rem; font-weight:700; color:var(--ink); background:var(--chip); border:1.5px solid transparent;
+  border-radius:999px; padding:5px 12px; cursor:pointer; display:inline-flex; align-items:center; gap:6px}
+.chips button:hover{border-color:var(--line)}
+.chips button[aria-pressed="true"]{border-color:var(--accent); background:var(--card); color:var(--accent)}
+.chips button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.sw{width:14px; height:14px; border-radius:50%; display:inline-block; border:1px solid rgba(0,0,0,.15)}
+.ctrls{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+
+/* theme cards */
+.themes{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:16px}
+.theme{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; display:flex; flex-direction:column; gap:10px; min-width:0}
+.theme.pick{border:2px solid var(--accent)}
+.theme .where{font-size:.85rem; font-weight:700; color:var(--muted)}
+.theme ul{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:4px}
+.badge{align-self:flex-start; font-size:.72rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; background:var(--accent); color:var(--paper); padding:3px 10px; border-radius:999px}
+
+/* loop */
+.loop{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; counter-reset:step}
+.step{padding:18px 0 0; border-top:3px solid var(--accent); display:flex; flex-direction:column; gap:8px}
+.step .when{font-family:var(--f-hand); font-size:1.6rem; color:var(--rose); line-height:1}
+.step h3::before{counter-increment:step; content:counter(step) " · "; color:var(--muted); font-family:var(--f-body); font-weight:800; font-size:.9rem}
+
+.list{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px}
+.list li{display:grid; grid-template-columns:150px 1fr; gap:12px; padding-bottom:10px; border-bottom:1px dashed var(--line)}
+.list li b{font-weight:800}
+
+/* character */
+.char{display:grid; grid-template-columns:220px 1fr; gap:20px; align-items:start}
+.char > *{min-width:0}
+.char-stage{background:linear-gradient(180deg, var(--chip), var(--card)); border-radius:12px; padding:8px}
+.customers{display:flex; flex-wrap:wrap; gap:8px}
+.cust{font:inherit; text-align:left; background:var(--chip); border:1.5px solid transparent; border-radius:12px; padding:8px 12px; cursor:pointer; color:var(--ink); flex:1 1 140px}
+.cust[aria-pressed="true"]{border-color:var(--rose); background:var(--card)}
+.cust:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.cust b{display:block; font-size:.92rem}
+.cust span{font-size:.78rem; color:var(--muted)}
+.meter{display:flex; gap:6px; align-items:center}
+.scene svg.cup{width:26px; height:20px; display:inline-block; border-radius:0}
+#cups{display:inline-flex; gap:4px}
+.cup path{fill:var(--line)}
+.cup.on path{fill:var(--rose)}
+.reaction{background:var(--chip); border-radius:12px; padding:12px 14px; font-size:.95rem}
+.reaction .who{font-weight:800}
+
+.mech{display:grid; grid-template-columns:repeat(3, 1fr); gap:20px}
+.mech div{display:flex; flex-direction:column; gap:6px}
+.mech h3{font-size:1.08rem}
+
+/* table */
+.tbl{overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:var(--card)}
+table{border-collapse:collapse; width:100%; min-width:720px; font-size:.92rem}
+th,td{text-align:left; padding:12px 14px; border-bottom:1px solid var(--line); vertical-align:top}
+th{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:800}
+tr:last-child td{border-bottom:0}
+td:first-child{font-family:var(--f-display); font-size:1.02rem; white-space:nowrap}
+.dot{display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:8px; vertical-align:middle}
+
+/* dual screen */
+.ds{display:flex; flex-direction:column; align-items:center; gap:10px; background:var(--bezel); border-radius:22px; padding:18px 18px 22px; max-width:440px; width:100%}
+.ds .top{width:100%; aspect-ratio:5/3; border-radius:6px; overflow:hidden; background:var(--screen); position:relative}
+.ds .top svg{width:100%; height:100%; display:block}
+.ds .hinge{width:60%; height:6px; border-radius:3px; background:rgba(255,255,255,.08)}
+.ds .bottom{width:80%; aspect-ratio:4/3; border-radius:6px; background:var(--screen); padding:10px; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:auto 1fr 1fr; gap:8px}
+.ds .bar{grid-column:1/-1; display:flex; justify-content:space-between; font-size:.7rem; font-weight:800; color:var(--muted)}
+.tile{border-radius:10px; background:var(--chip); display:flex; flex-direction:column; justify-content:flex-end; padding:8px; font-size:.78rem; font-weight:800; color:var(--ink); line-height:1.15}
+.tile small{font-weight:600; color:var(--muted); font-size:.66rem}
+.tile.hot{background:var(--accent); color:var(--paper)}
+.tile.hot small{color:var(--paper); opacity:.8}
+
+.next{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+.next div{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; display:flex; flex-direction:column; gap:6px}
+
+/* svg classes */
+.sky{fill:var(--sky)} .stone{fill:var(--stone)} .joint{stroke:var(--stone-line); stroke-width:1.2}
+.wallp{fill:var(--fa-wall)} .deep{fill:var(--fa-deep)} .glass{fill:var(--glass)} .glass-hi{fill:var(--glass-hi); opacity:.55}
+.aw1{fill:var(--aw1)} .aw2{fill:var(--aw2)} .fl1{fill:var(--fl1)} .fl2{fill:var(--fl2)}
+.pave{fill:var(--pave)} .pave-line{stroke:var(--pave-line); stroke-width:1.5}
+.goldtxt{fill:#e8c97c}
+.sign-belle{font-family:var(--f-display); font-style:italic; font-size:21px}
+.sign-deco{font-family:var(--f-deco); font-size:20px; letter-spacing:4px; font-weight:400}
+.sign-bistrot{font-family:var(--f-hand); font-size:27px; font-weight:700}
+.skin{fill:var(--skin, #f1c9a5)} .hair{fill:var(--hair, #5a3a2a)}
+.off{display:none}
+
+@media (max-width: 860px){
+  .hero, .split, .themes{grid-template-columns:1fr}
+  .loop, .mech, .next{grid-template-columns:1fr}
+}
+@media (max-width: 520px){
+  .char{grid-template-columns:1fr}
+  .char-stage{max-width:240px; margin:0 auto; width:100%}
+  .ctrls{grid-template-columns:1fr}
+  .list li{grid-template-columns:1fr; gap:2px}
+}
+@media (prefers-reduced-motion: no-preference){
+  .chips button, .cust{transition:border-color .15s, background .15s}
+  .cup path{transition:fill .25s}
+}
+</style>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="hero-text">
+    <span class="eyebrow">Concept di gioco · cozy · 2D a camera fissa</span>
+    <h1>Chez Sulina</h1>
+    <p class="hand">Pâtisserie &amp; salon de thé, 12 rue des Abbesses, Montmartre</p>
+    <p class="lede">Gestisci una piccola pasticceria-sala da tè ai piedi del Sacré-Cœur. Ogni mattina scegli cosa sfornare e cosa indossare, ogni sera ridipingi la vetrina e riarredi la sala. I clienti del quartiere notano tutto: il tuo look, la tua tenda a righe, la tazza in cui servi il tè.</p>
+    <div class="tags">
+      <span class="tag">Ispirato a New Style Boutique</span>
+      <span class="tag">Facciata + interno</span>
+      <span class="tag">Personaggio al centro</span>
+      <span class="tag">Doppio schermo</span>
+    </div>
+  </div>
+  <div class="scene">
+    <svg id="facade" viewBox="0 0 400 320" role="img" aria-label="Facciata della pasticceria Chez Sulina, personalizzabile">
+      <defs>
+        <pattern id="awn" patternUnits="userSpaceOnUse" width="28" height="40"><rect width="14" height="40" class="aw1"/><rect x="14" width="14" height="40" class="aw2"/></pattern>
+      </defs>
+      <rect class="sky" width="400" height="320"/>
+      <rect class="stone" x="30" y="4" width="340" height="284"/>
+      <g>
+        <line class="joint" x1="30" y1="26" x2="370" y2="26"/><line class="joint" x1="30" y1="52" x2="370" y2="52"/>
+        <line class="joint" x1="30" y1="78" x2="370" y2="78"/><line class="joint" x1="30" y1="104" x2="370" y2="104"/>
+      </g>
+      <!-- upper windows -->
+      <g>
+        <rect class="wallp" x="58" y="24" width="20" height="74" rx="2"/><rect class="wallp" x="134" y="24" width="20" height="74" rx="2"/>
+        <rect class="glass" x="80" y="24" width="52" height="74"/><rect class="glass-hi" x="84" y="28" width="12" height="66"/>
+        <line x1="106" y1="24" x2="106" y2="98" stroke="#f4efe6" stroke-width="3"/><line x1="80" y1="56" x2="132" y2="56" stroke="#f4efe6" stroke-width="3"/>
+        <rect class="wallp" x="246" y="24" width="20" height="74" rx="2"/><rect class="wallp" x="322" y="24" width="20" height="74" rx="2"/>
+        <rect class="glass" x="268" y="24" width="52" height="74"/><rect class="glass-hi" x="272" y="28" width="12" height="66"/>
+        <line x1="294" y1="24" x2="294" y2="98" stroke="#f4efe6" stroke-width="3"/><line x1="268" y1="56" x2="320" y2="56" stroke="#f4efe6" stroke-width="3"/>
+      </g>
+      <g id="flowers">
+        <g>
+          <ellipse cx="86" cy="96" rx="10" ry="6" fill="#5d8a4f"/><ellipse cx="126" cy="96" rx="10" ry="6" fill="#5d8a4f"/><ellipse cx="106" cy="94" rx="12" ry="6" fill="#4f7a43"/>
+          <circle class="fl1" cx="84" cy="92" r="5"/><circle class="fl2" cx="95" cy="89" r="4.5"/><circle class="fl1" cx="106" cy="88" r="5"/><circle class="fl2" cx="117" cy="90" r="4.5"/><circle class="fl1" cx="128" cy="92" r="5"/>
+          <ellipse cx="274" cy="96" rx="10" ry="6" fill="#5d8a4f"/><ellipse cx="314" cy="96" rx="10" ry="6" fill="#5d8a4f"/><ellipse cx="294" cy="94" rx="12" ry="6" fill="#4f7a43"/>
+          <circle class="fl1" cx="272" cy="92" r="5"/><circle class="fl2" cx="283" cy="89" r="4.5"/><circle class="fl1" cx="294" cy="88" r="5"/><circle class="fl2" cx="305" cy="90" r="4.5"/><circle class="fl1" cx="316" cy="92" r="5"/>
+        </g>
+      </g>
+      <rect x="76" y="98" width="60" height="10" rx="2" fill="#8a6a48"/><rect x="264" y="98" width="60" height="10" rx="2" fill="#8a6a48"/>
+      <rect x="30" y="112" width="340" height="8" fill="#f4efe6"/>
+      <!-- devanture -->
+      <rect class="wallp" x="40" y="120" width="320" height="168"/>
+      <rect class="deep" x="64" y="126" width="272" height="34" rx="3"/>
+      <rect x="67" y="129" width="266" height="28" rx="2" fill="none" stroke="#e8c97c" stroke-width="1"/>
+      <text id="signText" class="goldtxt sign-belle" x="200" y="150" text-anchor="middle">Chez Sulina</text>
+      <!-- awning -->
+      <path d="M52 162 H348 V182 q-14 12 -28 0 q-14 12 -28 0 q-14 12 -28 0 q-14 12 -28 0 q-14 12 -28 0 q-14 12 -28 0 q-14 12 -28 0 q-14 12 -28 0 q-14 12 -28 0 q-14 12 -28 0 q-8 10 -16 0 Z" fill="url(#awn)"/>
+      <rect x="52" y="160" width="296" height="5" fill="#000" opacity=".18"/>
+      <!-- shop window -->
+      <rect class="deep" x="54" y="196" width="180" height="86"/>
+      <rect class="glass" x="60" y="200" width="168" height="78"/>
+      <rect class="glass-hi" x="64" y="204" width="20" height="70"/>
+      <text x="144" y="216" text-anchor="middle" class="goldtxt" style="font-family:var(--f-body); font-size:9px; font-weight:800; letter-spacing:2px">PÂTISSERIE · SALON DE THÉ</text>
+      <g>
+        <rect x="86" y="266" width="44" height="4" fill="#f4efe6"/><rect x="106" y="246" width="4" height="20" fill="#f4efe6"/>
+        <ellipse cx="108" cy="246" rx="18" ry="3" fill="#f4efe6"/>
+        <path d="M94 246 q14 -16 28 0 Z" fill="#f2c6a0"/><circle cx="108" cy="234" r="3" fill="#c9374a"/>
+        <path d="M90 266 q18 -14 36 0 Z" fill="#c98a5a"/>
+        <circle cx="150" cy="268" r="6" fill="#e9a3b0"/><circle cx="164" cy="268" r="6" fill="#b9d58a"/><circle cx="178" cy="268" r="6" fill="#b7a2d6"/><circle cx="192" cy="268" r="6" fill="#f0cf73"/><circle cx="206" cy="268" r="6" fill="#e9a3b0"/>
+        <circle cx="157" cy="257" r="6" fill="#b7a2d6"/><circle cx="171" cy="257" r="6" fill="#f0cf73"/><circle cx="185" cy="257" r="6" fill="#e9a3b0"/><circle cx="199" cy="257" r="6" fill="#b9d58a"/>
+      </g>
+      <!-- door -->
+      <rect class="deep" x="248" y="190" width="94" height="98"/>
+      <rect class="glass" x="260" y="200" width="70" height="54"/>
+      <rect class="glass-hi" x="264" y="204" width="10" height="46"/>
+      <text x="295" y="232" text-anchor="middle" class="goldtxt" style="font-family:var(--f-display); font-size:16px">12</text>
+      <rect class="wallp" x="260" y="260" width="70" height="22" rx="2"/>
+      <circle cx="322" cy="256" r="3" fill="#e8c97c"/>
+      <!-- wall lamp -->
+      <path d="M352 150 h10 v4 h-10 Z" fill="#2a2a2a"/>
+      <path d="M350 154 h14 l-2 18 h-10 Z" class="glass"/>
+      <path d="M348 152 h18 l-3 -5 h-12 Z" fill="#2a2a2a"/>
+      <!-- pavement -->
+      <rect class="pave" x="0" y="288" width="400" height="32"/>
+      <line class="pave-line" x1="0" y1="290" x2="400" y2="290"/>
+      <line class="pave-line" x1="40" y1="290" x2="30" y2="320"/><line class="pave-line" x1="140" y1="290" x2="136" y2="320"/><line class="pave-line" x1="250" y1="290" x2="254" y2="320"/><line class="pave-line" x1="350" y1="290" x2="362" y2="320"/>
+      <!-- ardoise -->
+      <path d="M352 306 L360 260 H380 L388 306" fill="none" stroke="#8a6a48" stroke-width="3"/>
+      <rect x="356" y="262" width="28" height="30" rx="2" fill="#2c3430" stroke="#8a6a48" stroke-width="2"/>
+      <text id="ardoise" x="370" y="274" text-anchor="middle" style="font-family:var(--f-hand); font-size:8px; fill:#f3efe6">Tarte</text>
+      <text x="370" y="284" text-anchor="middle" style="font-family:var(--f-hand); font-size:8px; fill:#f3efe6">du jour</text>
+    </svg>
+    <div class="ctrls">
+      <div class="ctrl"><span class="ctrl-label">Devanture</span><div class="chips" id="c-wall"></div></div>
+      <div class="ctrl"><span class="ctrl-label">Tenda</span><div class="chips" id="c-awn"></div></div>
+      <div class="ctrl"><span class="ctrl-label">Insegna</span><div class="chips" id="c-sign"></div></div>
+      <div class="ctrl"><span class="ctrl-label">Fioriere</span><div class="chips" id="c-fl"></div></div>
+    </div>
+    <p class="caption">Mock interattivo dell'editor facciata. Con il tema scuro del dispositivo vedi la versione serale, con le vetrine illuminate.</p>
+  </div>
+</header>
+
+<section id="tema">
+  <div class="stack">
+    <span class="eyebrow">Il tema</span>
+    <h2>Una pasticceria a Montmartre, con due alternative</h2>
+    <p>New Style Boutique funziona perché tutto ruota attorno ai vestiti. Per tenere quel cuore ma spostarlo in Francia propongo una pasticceria-sala da tè: i dolci sono il servizio, l'eleganza è il linguaggio con cui parli ai clienti.</p>
+  </div>
+  <div class="themes">
+    <article class="theme pick">
+      <span class="badge">Consigliato</span>
+      <h3>Chez Sulina</h3>
+      <span class="where">Pâtisserie &amp; salon de thé · Montmartre, Parigi</span>
+      <ul>
+        <li>La devanture parigina in legno dipinto, con tenda e insegna dorata, è iconica e si presta a mille varianti.</li>
+        <li>Il Marché Saint-Pierre, il mercato dei tessuti in fondo alla collina, giustifica un atelier di cucito sul retro.</li>
+        <li>Place du Tertre è piena di pittori: il ritratto del tuo personaggio diventa un oggetto da collezione.</li>
+        <li>Clienti abituali del quartiere, quindi relazioni che crescono giorno dopo giorno.</li>
+      </ul>
+    </article>
+    <article class="theme">
+      <h3>La Brocante du Soleil</h3>
+      <span class="where">Antiquariato · L'Isle-sur-la-Sorgue, Provenza</span>
+      <p>Compri al mercato della domenica, restauri e rivendi. Ogni pezzo arreda il negozio finché non lo vendi.</p>
+      <p class="muted">Contro: la moda resta un contorno.</p>
+    </article>
+    <article class="theme">
+      <h3>Fleurs &amp; Parfums</h3>
+      <span class="where">Fioraia e profumeria · Grasse</span>
+      <p>Bouquet e profumi su misura, al ritmo dei raccolti: rosa centifolia a maggio, gelsomino a fine estate.</p>
+      <p class="muted">Contro: comporre profumi è più astratto da rendere in gioco.</p>
+    </article>
+  </div>
+</section>
+
+<section id="ciclo">
+  <div class="stack">
+    <span class="eyebrow">Il ciclo di gioco</span>
+    <h2>Una giornata a Chez Sulina</h2>
+    <p>Nessun movimento libero in 3D: ogni luogo è una scena a camera fissa, come in New Style Boutique. Ti sposti toccando il negozio, il mercato o l'atelier sulla mappa del quartiere.</p>
+  </div>
+  <div class="loop">
+    <div class="step"><span class="when">Le matin</span><h3>Prepari</h3><p>Al mercato compri ingredienti e tessuti. Scegli il menu e il look del giorno. La Gazette du Quartier annuncia la tendenza della settimana.</p></div>
+    <div class="step"><span class="when">L'ouverture</span><h3>Servi</h3><p>Entrano i clienti, ognuno con i suoi gusti di stile e di dolci. Abbina ordine, servizio e atmosfera: più armonia, più mance e più amicizia.</p></div>
+    <div class="step"><span class="when">Le soir</span><h3>Decori e cuci</h3><p>A negozio chiuso ridipingi la facciata, sposti i tavolini, cuci un capo nuovo nell'atelier e annoti le ricette nel tuo carnet.</p></div>
+  </div>
+</section>
+
+<section id="facciata">
+  <div class="split">
+    <div class="stack">
+      <span class="eyebrow">Arredare l'esterno</span>
+      <h2>La facciata è il tuo biglietto da visita</h2>
+      <p>La facciata è divisa in strati, ognuno modificabile da solo. Quello che metti in vetrina decide chi si ferma a guardare: espone macaron alla violetta e passeranno gli studenti d'arte, espone un Paris-Brest e si fermerà Madame Odette.</p>
+      <ul class="list">
+        <li><b>Devanture</b><span>Colore del legno, modanature, pannelli.</span></li>
+        <li><b>Insegna</b><span>Testo libero, carattere e doratura: Belle Époque, Art Déco, bistrot.</span></li>
+        <li><b>Tenda</b><span>Righe, tinta unita o smerlata, con il nome stampato.</span></li>
+        <li><b>Vetrina</b><span>Alzate, dolci esposti, vetrofanie. Attira tipi diversi di passanti.</span></li>
+        <li><b>Ardoise</b><span>La lavagnetta sul marciapiede: scrivi tu la frase a mano con il touch screen.</span></li>
+        <li><b>Terrasse</b><span>Tavolini all'aperto, sbloccabili: più posti in primavera e in estate.</span></li>
+        <li><b>Stagioni</b><span>Glicine ad aprile, lucine a dicembre, neve sulla tenda. Giorno e sera.</span></li>
+      </ul>
+    </div>
+    <div class="scene">
+      <svg id="interior" viewBox="0 0 400 250" role="img" aria-label="Interno della sala da tè, personalizzabile">
+        <defs>
+          <pattern id="w-stripes" patternUnits="userSpaceOnUse" width="24" height="20"><rect width="12" height="20" fill="#f2d5d9"/><rect x="12" width="12" height="20" fill="#fbf1ee"/></pattern>
+          <pattern id="w-toile" patternUnits="userSpaceOnUse" width="40" height="40"><rect width="40" height="40" fill="#eef1f5"/><circle cx="10" cy="10" r="3" fill="#7b93b8"/><path d="M10 13 q4 6 0 10 q-4 -4 0 -10Z" fill="#7b93b8"/><circle cx="30" cy="30" r="2.5" fill="#7b93b8"/><path d="M27 30 q-6 -2 -8 2" stroke="#7b93b8" fill="none"/></pattern>
+          <pattern id="w-sage" patternUnits="userSpaceOnUse" width="40" height="40"><rect width="40" height="40" fill="#5f8a76"/><rect x="2" y="2" width="36" height="36" fill="none" stroke="#6e9a85" stroke-width="1"/></pattern>
+          <pattern id="f-damier" patternUnits="userSpaceOnUse" width="40" height="20"><rect width="40" height="20" fill="#f1ede4"/><rect width="20" height="10" fill="#2a2a2a"/><rect x="20" y="10" width="20" height="10" fill="#2a2a2a"/></pattern>
+          <pattern id="f-parquet" patternUnits="userSpaceOnUse" width="60" height="16"><rect width="60" height="16" fill="#c08b58"/><rect width="60" height="8" fill="#b07a4a"/><line x1="20" y1="0" x2="20" y2="8" stroke="#8d5f37"/><line x1="50" y1="8" x2="50" y2="16" stroke="#8d5f37"/><line x1="0" y1="8" x2="60" y2="8" stroke="#8d5f37" stroke-width=".6"/></pattern>
+          <pattern id="f-cement" patternUnits="userSpaceOnUse" width="30" height="30"><rect width="30" height="30" fill="#e9e3d6"/><path d="M15 3 L27 15 L15 27 L3 15 Z" fill="#6f93a8"/><circle cx="15" cy="15" r="4" fill="#d98c98"/><rect width="30" height="30" fill="none" stroke="#d6cfbf" stroke-width="1"/></pattern>
+        </defs>
+        <rect id="wall" x="0" y="0" width="400" height="176" fill="url(#w-stripes)"/>
+        <rect x="0" y="0" width="400" height="8" fill="#f4efe6"/>
+        <rect x="0" y="136" width="400" height="40" fill="#f4eee3"/>
+        <g fill="none" stroke="#d9cdb8" stroke-width="1.5"><rect x="8" y="142" width="58" height="28"/><rect x="74" y="142" width="58" height="28"/><rect x="140" y="142" width="58" height="28"/></g>
+        <rect x="0" y="134" width="400" height="4" fill="#d9cdb8"/>
+        <rect id="floor" x="0" y="176" width="400" height="74" fill="url(#f-damier)"/>
+        <rect x="0" y="174" width="400" height="4" fill="#8a6a48"/>
+        <!-- chalkboard -->
+        <rect x="28" y="28" width="100" height="74" rx="3" fill="#2c3430" stroke="#8a6a48" stroke-width="4"/>
+        <g style="font-family:var(--f-hand); fill:#f3efe6">
+          <text x="78" y="46" text-anchor="middle" font-size="13" font-weight="700">Menu du jour</text>
+          <text x="38" y="62" font-size="10">Paris-Brest</text><text x="118" y="62" font-size="10" text-anchor="end">4,50</text>
+          <text x="38" y="76" font-size="10">Éclair café</text><text x="118" y="76" font-size="10" text-anchor="end">3,80</text>
+          <text x="38" y="90" font-size="10">Chocolat chaud</text><text x="118" y="90" font-size="10" text-anchor="end">4,00</text>
+        </g>
+        <!-- lamps -->
+        <g><line x1="170" y1="0" x2="170" y2="44" stroke="#3a3a3a" stroke-width="1.5"/><path d="M156 56 q14 -18 28 0 Z" fill="#e8c97c"/><circle cx="170" cy="58" r="4" fill="#fff3c7"/>
+           <line x1="310" y1="0" x2="310" y2="34" stroke="#3a3a3a" stroke-width="1.5"/><path d="M296 46 q14 -18 28 0 Z" fill="#e8c97c"/><circle cx="310" cy="48" r="4" fill="#fff3c7"/></g>
+        <!-- shelf -->
+        <rect x="236" y="88" width="150" height="5" fill="#8a6a48"/>
+        <rect x="246" y="66" width="14" height="22" rx="3" fill="#d6e6ea" stroke="#9fb9c0"/><rect x="266" y="72" width="14" height="16" rx="3" fill="#f2d5a0" stroke="#c9a76a"/>
+        <path d="M300 88 q0 -18 16 -18 q16 0 16 18 Z" fill="#f4efe6" stroke="#c7bfae"/><path d="M332 78 q8 -2 8 6" stroke="#c7bfae" fill="none" stroke-width="2"/>
+        <rect x="350" y="70" width="10" height="18" fill="#c9707f"/><rect x="362" y="66" width="10" height="22" fill="#5f8a76"/><rect x="374" y="72" width="8" height="16" fill="#e8c97c"/>
+        <!-- counter -->
+        <rect x="236" y="106" width="136" height="30" fill="#dcecf0" opacity=".85" stroke="#b8893a"/>
+        <ellipse cx="258" cy="128" rx="12" ry="5" fill="#c98a5a"/><ellipse cx="258" cy="124" rx="10" ry="3" fill="#f2e6d0"/>
+        <rect x="280" y="120" width="20" height="10" rx="2" fill="#7a4a35"/><rect x="306" y="120" width="20" height="10" rx="2" fill="#e9a3b0"/>
+        <circle cx="340" cy="126" r="5" fill="#b7a2d6"/><circle cx="352" cy="126" r="5" fill="#b9d58a"/><circle cx="346" cy="118" r="5" fill="#f0cf73"/>
+        <rect x="228" y="136" width="152" height="7" fill="#efeae2"/>
+        <rect class="wallp" x="234" y="143" width="140" height="62"/>
+        <g fill="none" stroke="#e8c97c" stroke-width="1"><rect x="242" y="150" width="56" height="48"/><rect x="310" y="150" width="56" height="48"/></g>
+        <!-- table + chairs -->
+        <path d="M74 230 v-34 q0 -10 10 -10 h2" stroke="#3a2a1f" stroke-width="3" fill="none"/><line x1="70" y1="210" x2="96" y2="210" stroke="#3a2a1f" stroke-width="4"/><line x1="94" y1="210" x2="96" y2="232" stroke="#3a2a1f" stroke-width="3"/>
+        <path d="M168 230 v-34 q0 -10 -10 -10 h-2" stroke="#3a2a1f" stroke-width="3" fill="none"/><line x1="146" y1="210" x2="172" y2="210" stroke="#3a2a1f" stroke-width="4"/><line x1="148" y1="210" x2="146" y2="232" stroke="#3a2a1f" stroke-width="3"/>
+        <ellipse cx="121" cy="196" rx="32" ry="6" fill="#efeae2" stroke="#cfc6b6"/><line x1="121" y1="200" x2="121" y2="232" stroke="#3a2a1f" stroke-width="3"/><ellipse cx="121" cy="233" rx="12" ry="3" fill="#3a2a1f"/>
+        <path d="M108 192 h12 v-6 q-6 -3 -12 0Z" fill="#f4efe6" stroke="#c7bfae"/><ellipse cx="134" cy="192" rx="8" ry="2.5" fill="#f4efe6" stroke="#c7bfae"/><path d="M130 190 q4 -6 8 0Z" fill="#e9a3b0"/>
+        <!-- plant -->
+        <path d="M14 238 h24 l-4 -22 h-16 Z" fill="#c97b5a"/>
+        <ellipse cx="20" cy="204" rx="6" ry="14" fill="#5d8a4f" transform="rotate(-20 20 204)"/><ellipse cx="32" cy="202" rx="6" ry="15" fill="#4f7a43" transform="rotate(18 32 202)"/><ellipse cx="26" cy="196" rx="5" ry="16" fill="#6a9a5a"/>
+        <!-- cat -->
+        <ellipse cx="206" cy="236" rx="20" ry="9" fill="#6b5b53"/><circle cx="222" cy="230" r="8" fill="#6b5b53"/>
+        <path d="M216 224 l2 -7 l4 5 Z M224 223 l4 -6 l2 7 Z" fill="#6b5b53"/><path d="M188 238 q-8 -2 -6 -8" stroke="#6b5b53" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M218 231 q2 1 4 0 M224 231 q2 1 4 0" stroke="#2b2320" stroke-width="1" fill="none"/>
+      </svg>
+      <div class="ctrls">
+        <div class="ctrl"><span class="ctrl-label">Pareti</span><div class="chips" id="c-wallp"></div></div>
+        <div class="ctrl"><span class="ctrl-label">Pavimento</span><div class="chips" id="c-floor"></div></div>
+      </div>
+      <p class="caption">L'interno visto di lato, a camera fissa. Il bancone prende il colore scelto per la devanture, così dentro e fuori restano coordinati. Il gatto si chiama Croissant e non si sposta.</p>
+    </div>
+  </div>
+  <div class="mech">
+    <div><h3>Arredo a slot</h3><p>La sala è divisa in zone: bancone, vetrina dolci, tavoli, pareti, soffitto. Ogni zona ha slot a griglia, quindi è facile sistemare tutto con lo stilo.</p></div>
+    <div><h3>Ambiance</h3><p>Ogni mobile ha uno stile. Lo stile che prevale nella sala dà il tono all'ambiente e attira clienti affini. Un set completo sblocca un bonus estetico, come una melodia diversa.</p></div>
+    <div><h3>Stoviglie che contano</h3><p>Tazze, teiere e alzate sono collezionabili: servire una cliente Art Déco in porcellana a righe nere e oro aumenta l'armonia.</p></div>
+  </div>
+</section>
+
+<section id="personaggio">
+  <div class="stack">
+    <span class="eyebrow">Il personaggio</span>
+    <h2>Il tuo look fa parte del servizio</h2>
+    <p>La personalizzazione non è solo estetica. Ogni capo ha uno stile, ogni cliente ha i suoi stili preferiti: quando il tuo look, la sala e il dolce si accordano con i gusti di chi hai davanti, nasce l'<b>Harmonie</b>. Non ci sono penalità: un look "sbagliato" non fa perdere nulla, uno azzeccato regala mance, confidenze e ricette segrete.</p>
+  </div>
+  <div class="split">
+    <div class="char">
+      <div class="char-stage">
+        <svg id="avatar" viewBox="0 0 200 290" role="img" aria-label="Anteprima del personaggio">
+          <defs>
+            <pattern id="p-marin" patternUnits="userSpaceOnUse" width="10" height="10"><rect width="10" height="10" fill="#fbf8f2"/><rect y="5" width="10" height="4" fill="#253a66"/></pattern>
+            <pattern id="p-prov" patternUnits="userSpaceOnUse" width="14" height="14"><rect width="14" height="14" fill="#e9b949"/><circle cx="4" cy="4" r="1.8" fill="#fbf3dc"/><circle cx="11" cy="11" r="1.8" fill="#3e6fa8"/></pattern>
+          </defs>
+          <ellipse cx="100" cy="274" rx="56" ry="7" fill="#000" opacity=".08"/>
+          <!-- hair back -->
+          <g id="hb-carre" class="hair"><rect x="54" y="68" width="92" height="72" rx="30"/></g>
+          <g id="hb-trecce" class="hair">
+            <circle cx="60" cy="118" r="8"/><circle cx="58" cy="132" r="7.5"/><circle cx="58" cy="145" r="7"/><circle cx="58" cy="157" r="6"/>
+            <circle cx="140" cy="118" r="8"/><circle cx="142" cy="132" r="7.5"/><circle cx="142" cy="145" r="7"/><circle cx="142" cy="157" r="6"/>
+            <rect x="52" y="160" width="12" height="5" rx="2" fill="#c9707f"/><rect x="136" y="160" width="12" height="5" rx="2" fill="#c9707f"/>
+          </g>
+          <!-- legs & arms -->
+          <rect class="skin" x="82" y="212" width="15" height="54" rx="7"/><rect class="skin" x="103" y="212" width="15" height="54" rx="7"/>
+          <ellipse cx="88" cy="268" rx="11" ry="6" fill="#3a2a24"/><ellipse cx="112" cy="268" rx="11" ry="6" fill="#3a2a24"/>
+          <rect class="skin" x="58" y="146" width="14" height="60" rx="7"/><rect class="skin" x="128" y="146" width="14" height="60" rx="7"/>
+          <rect class="skin" x="93" y="134" width="14" height="12"/>
+          <!-- outfits -->
+          <g id="o-marin">
+            <rect x="78" y="196" width="44" height="22" rx="4" fill="#253a66"/>
+            <rect x="80" y="210" width="18" height="56" rx="6" fill="#253a66"/><rect x="102" y="210" width="18" height="56" rx="6" fill="#253a66"/>
+            <rect x="70" y="140" width="60" height="62" rx="14" fill="url(#p-marin)"/>
+            <rect x="56" y="144" width="18" height="38" rx="8" fill="url(#p-marin)"/><rect x="126" y="144" width="18" height="38" rx="8" fill="url(#p-marin)"/>
+            <path d="M90 140 q10 8 20 0" fill="#fbf8f2"/><path d="M118 190 l10 0" stroke="#c9374a" stroke-width="3"/>
+          </g>
+          <g id="o-prov">
+            <ellipse cx="66" cy="152" rx="11" ry="10" fill="url(#p-prov)"/><ellipse cx="134" cy="152" rx="11" ry="10" fill="url(#p-prov)"/>
+            <path d="M68 186 H132 L146 238 Q100 248 54 238 Z" fill="url(#p-prov)"/>
+            <rect x="70" y="140" width="60" height="52" rx="14" fill="url(#p-prov)"/>
+            <path d="M82 160 H118 V228 Q100 234 82 228 Z" fill="#fbf7f0"/>
+            <rect x="72" y="182" width="56" height="5" fill="#fbf7f0"/>
+            <path d="M88 140 l12 10 l12 -10" fill="none" stroke="#fbf7f0" stroke-width="3"/>
+          </g>
+          <g id="o-deco">
+            <rect x="56" y="144" width="18" height="56" rx="8" fill="#1f4d52"/><rect x="126" y="144" width="18" height="56" rx="8" fill="#1f4d52"/>
+            <path d="M74 140 H126 Q132 140 132 150 L138 238 H62 L68 150 Q68 140 74 140 Z" fill="#1f4d52"/>
+            <path d="M88 140 L100 160 L112 140" fill="none" stroke="#d8b25c" stroke-width="2.5"/>
+            <polyline points="66,206 78,198 90,206 100,198 110,206 122,198 134,206" fill="none" stroke="#d8b25c" stroke-width="2.5"/>
+            <polyline points="64,220 78,212 90,220 100,212 110,220 122,212 136,220" fill="none" stroke="#d8b25c" stroke-width="2.5"/>
+            <g fill="#f4efe6"><circle cx="90" cy="150" r="2.4"/><circle cx="95" cy="155" r="2.4"/><circle cx="100" cy="158" r="2.4"/><circle cx="105" cy="155" r="2.4"/><circle cx="110" cy="150" r="2.4"/></g>
+          </g>
+          <g id="o-belle">
+            <path d="M70 180 H130 L152 262 Q100 274 48 262 Z" fill="#c9707f"/>
+            <path d="M60 236 Q100 248 140 236" fill="none" stroke="#e9a3b0" stroke-width="3"/>
+            <ellipse cx="62" cy="158" rx="13" ry="18" fill="#fbf7f2"/><ellipse cx="138" cy="158" rx="13" ry="18" fill="#fbf7f2"/>
+            <rect x="57" y="170" width="14" height="34" rx="6" fill="#fbf7f2"/><rect x="129" y="170" width="14" height="34" rx="6" fill="#fbf7f2"/>
+            <rect x="70" y="140" width="60" height="46" rx="14" fill="#fbf7f2"/>
+            <rect x="90" y="132" width="20" height="12" rx="3" fill="#fbf7f2"/>
+            <rect x="72" y="178" width="56" height="7" fill="#7a3e4a"/>
+            <path d="M100 146 l-12 -6 v12 Z M100 146 l12 -6 v12 Z" fill="#c9707f"/><circle cx="100" cy="146" r="3" fill="#a8505f"/>
+          </g>
+          <!-- hands -->
+          <circle class="skin" cx="65" cy="206" r="7"/><circle class="skin" cx="135" cy="206" r="7"/>
+          <!-- head -->
+          <circle class="skin" cx="56" cy="106" r="7"/><circle class="skin" cx="144" cy="106" r="7"/>
+          <circle class="skin" cx="100" cy="100" r="42"/>
+          <ellipse cx="84" cy="106" rx="4" ry="5.5" fill="#2b2320"/><ellipse cx="116" cy="106" rx="4" ry="5.5" fill="#2b2320"/>
+          <circle cx="85.5" cy="104" r="1.4" fill="#fff"/><circle cx="117.5" cy="104" r="1.4" fill="#fff"/>
+          <ellipse cx="76" cy="118" rx="6" ry="3" fill="#e57f86" opacity=".45"/><ellipse cx="124" cy="118" rx="6" ry="3" fill="#e57f86" opacity=".45"/>
+          <path d="M94 122 Q100 127 106 122" fill="none" stroke="#7a3e3a" stroke-width="2" stroke-linecap="round"/>
+          <!-- hair front -->
+          <g id="hf-carre" class="hair"><path d="M56 104 Q58 56 100 54 Q142 56 144 104 Q132 80 100 82 Q70 80 56 104 Z"/></g>
+          <g id="hf-chignon" class="hair"><circle cx="100" cy="50" r="18"/><path d="M58 102 Q58 56 100 56 Q142 56 142 102 Q128 76 100 76 Q72 76 58 102 Z"/></g>
+          <g id="hf-onde" class="hair"><path d="M57 110 Q54 56 100 55 Q146 56 143 110 Q136 96 128 102 Q122 88 112 96 Q104 82 94 92 Q84 82 76 96 Q66 92 57 110 Z"/><circle cx="60" cy="118" r="7"/><circle cx="140" cy="118" r="7"/></g>
+          <g id="hf-trecce" class="hair"><path d="M58 108 Q58 56 100 56 Q142 56 142 108 Q132 78 100 74 Q68 78 58 108 Z"/></g>
+          <!-- accessories -->
+          <g id="a-beret"><ellipse cx="94" cy="62" rx="44" ry="15" fill="#24303a" transform="rotate(-10 94 62)"/><rect x="92" y="42" width="5" height="8" rx="2" fill="#24303a"/></g>
+          <g id="a-cloche"><path d="M56 96 Q56 46 100 46 Q144 46 144 96 Z" fill="#6b4f7a"/><rect x="57" y="82" width="86" height="8" fill="#d8b25c"/><ellipse cx="100" cy="96" rx="50" ry="6" fill="#5a4168"/></g>
+          <g id="a-paille"><path d="M70 70 Q72 38 100 38 Q128 38 130 70 Z" fill="#e6c883"/><rect x="70" y="60" width="60" height="8" fill="#5f8a76"/><ellipse cx="100" cy="70" rx="66" ry="13" fill="#ddbd74"/></g>
+          <g id="a-fiocco"><path d="M134 70 l-16 -10 v20 Z M134 70 l16 -10 v20 Z" fill="#c9707f"/><circle cx="134" cy="70" r="4.5" fill="#a8505f"/></g>
+        </svg>
+      </div>
+      <div class="stack">
+        <div class="ctrl"><span class="ctrl-label">Capelli</span><div class="chips" id="c-hair"></div></div>
+        <div class="ctrl"><span class="ctrl-label">Colore capelli</span><div class="chips" id="c-hcol"></div></div>
+        <div class="ctrl"><span class="ctrl-label">Carnagione</span><div class="chips" id="c-skin"></div></div>
+        <div class="ctrl"><span class="ctrl-label">Abito</span><div class="chips" id="c-outfit"></div></div>
+        <div class="ctrl"><span class="ctrl-label">Accessorio</span><div class="chips" id="c-acc"></div></div>
+      </div>
+    </div>
+    <div class="scene">
+      <span class="ctrl-label">Chi entra adesso?</span>
+      <div class="customers" id="customers"></div>
+      <div class="meter" aria-live="polite">
+        <span class="ctrl-label" style="margin-right:6px">Harmonie</span>
+        <span id="cups"></span>
+        <b id="score" style="margin-left:6px; font-variant-numeric:tabular-nums"></b>
+      </div>
+      <div class="reaction" id="reaction" aria-live="polite"></div>
+      <p class="caption">Prova a vestirti per ognuno dei tre clienti. L'abito vale 2 punti, capelli e accessorio 1 punto ciascuno. Nel gioco completo contano anche l'ambiance della sala e il dolce servito.</p>
+    </div>
+  </div>
+
+  <div class="mech">
+    <div><h3>L'atelier sul retro</h3><p>I capi non si comprano soltanto: si cuciono. Al Marché Saint-Pierre scegli stoffe e bottoni, poi combini cartamodello, tessuto e due zone di colore. Il capo nuovo entra anche nel catalogo da vendere alle amiche.</p></div>
+    <div><h3>La tendenza della settimana</h3><p>La Gazette du Quartier annuncia lo stile in voga, per esempio "settimana marinière". Chi lo segue riceve più visite, chi lo ignora non perde nulla.</p></div>
+    <div><h3>Eventi con dress code</h3><p>Fête de la Musique, 14 juillet, Nuit Blanche, mercatino di Natale. Ogni evento chiede un tema per te, per la facciata e per la sala.</p></div>
+    <div><h3>Il ritratto di Place du Tertre</h3><p>Un pittore del quartiere ti fa il ritratto con il look del momento. I quadri si appendono in sala e diventano un album del tuo stile nel tempo.</p></div>
+    <div><h3>La divisa del personale</h3><p>Più avanti assumi una persona per il bancone. Vestire anche lei crea un look coordinato e sblocca la doppia Harmonie.</p></div>
+    <div><h3>Il quartiere ricorda</h3><p>I clienti abituali commentano i cambi di look e ti chiedono consigli per il loro. Ogni amicizia completata regala un capo unico di quel personaggio.</p></div>
+  </div>
+
+  <div class="stack">
+    <h3>Cosa si personalizza, nel dettaglio</h3>
+    <ul class="list">
+      <li><b>Corpo</b><span>Altezza, corporatura e una gamma ampia di carnagioni, senza preset legati al genere.</span></li>
+      <li><b>Viso</b><span>Forma degli occhi, sopracciglia, lentiggini, nei, occhiali, trucco leggero.</span></li>
+      <li><b>Capelli</b><span>Taglio, colore, mèches, fermagli. Cambiabili dal parrucchiere del quartiere.</span></li>
+      <li><b>Identità</b><span>Nome, pronomi e voce si scelgono a parte, indipendenti dall'aspetto.</span></li>
+      <li><b>Guardaroba</b><span>Quattro strati: sotto, sopra, capospalla, accessori. Due zone di colore per capo.</span></li>
+      <li><b>Look salvati</b><span>Tre armadi rapidi per cambiarti in un tocco prima di aprire.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="stili">
+  <div class="stack">
+    <span class="eyebrow">I cinque stili del quartiere</span>
+    <h2>Uno stesso linguaggio per vestiti, arredi e dolci</h2>
+    <p>Ogni oggetto del gioco appartiene a uno di cinque stili. È questo che collega guardaroba, facciata e sala: il giocatore impara a "leggere" i clienti come in New Style Boutique, ma su tre fronti.</p>
+  </div>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Stile</th><th>Guardaroba</th><th>Arredo</th><th>Dolce simbolo</th><th>Chi lo ama</th></tr></thead>
+      <tbody>
+        <tr><td><span class="dot" style="background:#c9707f"></span>Belle Époque</td><td>Blouse a collo alto, gonne lunghe, fiocchi</td><td>Specchi dorati, velluto, lampade a tulipano</td><td>Paris-Brest</td><td>Madame Odette, ex sarta del Moulin Rouge</td></tr>
+        <tr><td><span class="dot" style="background:#1f4d52"></span>Art Déco</td><td>Abiti dritti, cloche, perle</td><td>Ottone, geometrie, marmo nero</td><td>Gâteau Opéra</td><td>Odette, Inès</td></tr>
+        <tr><td><span class="dot" style="background:#253a66"></span>Marinière</td><td>Righe bretoni, cerate gialle, sabot</td><td>Legno chiaro, corde, bianco e blu</td><td>Kouign-amann</td><td>Yannick, pescatore di Saint-Malo</td></tr>
+        <tr><td><span class="dot" style="background:#e9b949"></span>Provençal</td><td>Cotoni stampati, paglia, espadrillas</td><td>Ceramiche, lavanda, sedie impagliate</td><td>Tarte tropézienne</td><td>Yannick, la fioraia Mireille</td></tr>
+        <tr><td><span class="dot" style="background:#24303a"></span>Rive Gauche</td><td>Dolcevita, béret, trench</td><td>Libri, poltrone in pelle, piante</td><td>Tarte Tatin</td><td>Inès, studentessa d'arte</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="schermi">
+  <div class="split">
+    <div class="stack">
+      <span class="eyebrow">Interfaccia</span>
+      <h2>Due schermi, come sul 3DS</h2>
+      <p>Lo schermo in alto mostra la scena: il negozio, il cliente, la sua richiesta. Quello in basso è il tuo grembiule: menu touch grandi, inventario e carnet. Su PC o telefono le due aree si affiancano o si sovrappongono, ma la logica resta la stessa.</p>
+      <ul class="list">
+        <li><b>Schermo alto</b><span>Scena a camera fissa, fumetti di dialogo, l'indicatore di Harmonie.</span></li>
+        <li><b>Schermo basso</b><span>Sei sezioni sempre a un tocco, con i badge per le novità.</span></li>
+        <li><b>Stilo</b><span>Trascini mobili negli slot, scrivi l'ardoise, decori i dolci con la sac à poche.</span></li>
+      </ul>
+    </div>
+    <div style="display:flex; justify-content:center">
+      <div class="ds" aria-label="Mock dell'interfaccia a due schermi">
+        <div class="top">
+          <svg viewBox="0 0 400 240" role="img" aria-label="Schermo superiore: una cliente chiede un Paris-Brest">
+            <rect width="400" height="160" fill="url(#w-stripes)"/>
+            <rect y="120" width="400" height="40" fill="#f4eee3"/>
+            <rect y="160" width="400" height="80" fill="url(#f-damier)"/>
+            <rect x="230" y="128" width="170" height="8" fill="#efeae2"/>
+            <rect class="wallp" x="236" y="136" width="160" height="70"/>
+            <!-- customer: Odette -->
+            <rect x="96" y="120" width="56" height="90" rx="20" fill="#6b4f7a"/>
+            <circle cx="124" cy="96" r="30" fill="#f1d3bd"/>
+            <path d="M94 96 Q94 62 124 62 Q154 62 154 96 Q144 78 124 80 Q104 78 94 96Z" fill="#d9d4cf"/>
+            <circle cx="124" cy="58" r="12" fill="#d9d4cf"/>
+            <ellipse cx="114" cy="100" rx="3" ry="4" fill="#2b2320"/><ellipse cx="134" cy="100" rx="3" ry="4" fill="#2b2320"/>
+            <path d="M118 112 q6 4 12 0" stroke="#7a3e3a" stroke-width="2" fill="none"/>
+            <!-- bubble -->
+            <rect x="170" y="22" width="210" height="58" rx="14" fill="#fffdf8" stroke="#2c3330" stroke-width="2"/>
+            <path d="M184 80 l-14 18 l26 -18 Z" fill="#fffdf8" stroke="#2c3330" stroke-width="2" stroke-linejoin="round"/>
+            <rect x="183" y="76" width="16" height="6" fill="#fffdf8"/>
+            <text x="186" y="46" style="font-family:var(--f-body); font-size:15px; font-weight:800; fill:#22302b">Un Paris-Brest,</text>
+            <text x="186" y="66" style="font-family:var(--f-body); font-size:15px; font-weight:800; fill:#22302b">s'il vous plaît !</text>
+            <!-- hud -->
+            <rect x="10" y="10" width="140" height="26" rx="13" fill="#22302b" opacity=".85"/>
+            <text x="22" y="28" style="font-family:var(--f-body); font-size:12px; font-weight:800; fill:#f4efe6">Harmonie</text>
+            <g fill="#e9a3b0"><circle cx="96" cy="23" r="6"/><circle cx="112" cy="23" r="6"/><circle cx="128" cy="23" r="6"/></g><circle cx="144" cy="23" r="5" fill="none" stroke="#e9a3b0" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="hinge"></div>
+        <div class="bottom">
+          <div class="bar"><span>Mar. 14 avril · Printemps</span><span>128 €</span></div>
+          <div class="tile hot">Servire<small>Odette aspetta</small></div>
+          <div class="tile">Guardaroba<small>3 look</small></div>
+          <div class="tile">Facciata<small>Nuova tenda</small></div>
+          <div class="tile">Sala<small>Ambiance: Belle Ép.</small></div>
+          <div class="tile">Atelier<small>2 stoffe</small></div>
+          <div class="tile">Carnet<small>Ricette, amici</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="prossimi">
+  <div class="stack">
+    <span class="eyebrow">Prossimi passi</span>
+    <h2>Da dove partire</h2>
+  </div>
+  <div class="next">
+    <div><h3>1. Fissare tema e stile grafico</h3><p>Confermare la pasticceria a Montmartre e scegliere la resa: pixel art in stile 3DS a 400×240 raddoppiata, oppure illustrazione morbida in HD.</p></div>
+    <div><h3>2. Fetta verticale</h3><p>Una facciata, una sala, 12 capi, 3 clienti, un giorno completo dal mercato alla chiusura. Basta per capire se l'Harmonie è divertente.</p></div>
+    <div><h3>3. Motore</h3><p>Godot 4 è adatto: gratuito, ottimo per il 2D a scene fisse, esporta su PC, web e telefono. Il gioco può nascere direttamente in questo repository.</p></div>
+  </div>
+</section>
+
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const root = document.documentElement;
+  const fac = $('facade'), inter = $('interior'), av = $('avatar');
+
+  function chips(container, items, initial, onPick, swatch){
+    const el = $(container);
+    items.forEach((it, i) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.id = container + '-' + i;
+      b.setAttribute('aria-pressed', String(i === initial));
+      if (swatch) { const s = document.createElement('span'); s.className = 'sw'; s.style.background = swatch(it); b.appendChild(s); }
+      b.appendChild(document.createTextNode(it.name));
+      b.addEventListener('click', () => {
+        el.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', 'false'));
+        b.setAttribute('aria-pressed', 'true'); onPick(it);
+      });
+      el.appendChild(b);
+    });
+    onPick(items[initial]);
+  }
+  const setVars = (node, obj) => Object.entries(obj).forEach(([k, v]) => node.style.setProperty(k, v));
+
+  // Facade: wall colour goes on :root so the interior counter follows it
+  chips('c-wall', [
+    {name:'Vert wagon', w:'#2f5d50', d:'#1f4037'},
+    {name:'Bleu de Prusse', w:'#2b4a6f', d:'#1b3150'},
+    {name:'Rose ancien', w:'#b97681', d:'#8f525d'},
+    {name:'Noir laqué', w:'#2b2b30', d:'#161619'}
+  ], 0, it => setVars(root, {'--fa-wall':it.w, '--fa-deep':it.d}), it => it.w);
+  chips('c-awn', [
+    {name:'Rosa e bianco', a:'#e7a1ad', b:'#fbf5ef'},
+    {name:'Verde e crema', a:'#7fae95', b:'#f4efe2'},
+    {name:'Blu e bianco', a:'#5d7fb3', b:'#f6f6f2'},
+    {name:'Senape', a:'#d9a441', b:'#d9a441'}
+  ], 0, it => setVars(fac, {'--aw1':it.a, '--aw2':it.b}), it => it.a);
+  chips('c-sign', [
+    {name:'Belle Époque', c:'sign-belle', t:'Chez Sulina'},
+    {name:'Art Déco', c:'sign-deco', t:'CHEZ SULINA'},
+    {name:'Bistrot', c:'sign-bistrot', t:'Chez Sulina'}
+  ], 0, it => { const t = $('signText'); t.setAttribute('class', 'goldtxt ' + it.c); t.textContent = it.t; });
+  chips('c-fl', [
+    {name:'Gerani', a:'#d6453d', b:'#ef7a6a'},
+    {name:'Lavanda', a:'#8a6fb8', b:'#a58bd0'},
+    {name:'Ortensie', a:'#6f93c9', b:'#9db5e0'},
+    {name:'Nessuna', none:true}
+  ], 0, it => { $('flowers').classList.toggle('off', !!it.none); if (!it.none) setVars(fac, {'--fl1':it.a, '--fl2':it.b}); }, it => it.none ? 'transparent' : it.a);
+
+  // Interior
+  chips('c-wallp', [
+    {name:'Righe rosa', p:'w-stripes', s:'#f2d5d9'},
+    {name:'Toile blu', p:'w-toile', s:'#7b93b8'},
+    {name:'Boiserie salvia', p:'w-sage', s:'#5f8a76'}
+  ], 0, it => $('wall').setAttribute('fill', 'url(#' + it.p + ')'), it => it.s);
+  chips('c-floor', [
+    {name:'Scacchiera', p:'f-damier', s:'#2a2a2a'},
+    {name:'Parquet', p:'f-parquet', s:'#b07a4a'},
+    {name:'Cementine', p:'f-cement', s:'#6f93a8'}
+  ], 0, it => $('floor').setAttribute('fill', 'url(#' + it.p + ')'), it => it.s);
+
+  // Character
+  const STYLE = {belle:'Belle Époque', deco:'Art Déco', marin:'Marinière', prov:'Provençal', rive:'Rive Gauche'};
+  const state = {};
+  const show = (prefix, ids, cur) => ids.forEach(id => { const n = $(prefix + id); if (n) n.classList.toggle('off', id !== cur); });
+  const HAIR = [{id:'carre', name:'Carré', tag:'rive'}, {id:'chignon', name:'Chignon', tag:'belle'}, {id:'onde', name:'Onde rétro', tag:'deco'}, {id:'trecce', name:'Trecce', tag:'prov'}];
+  const OUT = [{id:'belle', name:'Blouse Belle Époque', tag:'belle'}, {id:'deco', name:'Abito Art Déco', tag:'deco'}, {id:'marin', name:'Marinière', tag:'marin'}, {id:'prov', name:'Abito provenzale', tag:'prov'}];
+  const ACC = [{id:'fiocco', name:'Fiocco', tag:'belle'}, {id:'cloche', name:'Cloche', tag:'deco'}, {id:'beret', name:'Béret', tag:'rive'}, {id:'paille', name:'Paglia', tag:'prov'}, {id:'none', name:'Niente', tag:null}];
+  const CUST = [
+    {id:'odette', name:'Madame Odette', note:'78 anni, ex sarta del Moulin Rouge', likes:['belle','deco'], order:'un Paris-Brest', secret:'il Paris-Brest alla rosa di sua madre'},
+    {id:'yannick', name:'Yannick', note:'pescatore di Saint-Malo in visita', likes:['marin','prov'], order:'un kouign-amann', secret:'il far breton alle prugne'},
+    {id:'ines', name:'Inès', note:'studentessa d’arte, dipinge in Place du Tertre', likes:['rive','deco'], order:'un macaron alla violetta', secret:'la sua Tarte Tatin rovesciata'}
+  ];
+
+  function score(){
+    const c = state.cust; if (!c || !state.out) return;
+    let s = 0;
+    if (c.likes.includes(state.out.tag)) s += 2;
+    if (c.likes.includes(state.hair.tag)) s += 1;
+    if (state.acc.tag && c.likes.includes(state.acc.tag)) s += 1;
+    const cups = $('cups'); cups.innerHTML = '';
+    for (let i = 0; i < 4; i++){
+      cups.insertAdjacentHTML('beforeend', '<svg class="cup' + (i < s ? ' on' : '') + '" viewBox="0 0 26 20" aria-hidden="true"><path d="M2 4h16v6a7 7 0 0 1-7 7h-2a7 7 0 0 1-7-7Z M18 6h2a3 3 0 0 1 0 6h-2v-2h2a1 1 0 0 0 0-2h-2Z M0 18h22v2H0Z"/></svg>');
+    }
+    $('score').textContent = s + '/4';
+    const likes = c.likes.map(t => STYLE[t]).join(' e ');
+    let msg;
+    if (s === 0) msg = 'Ordina ' + c.order + ' e si siede in silenzio. Va benissimo così: tornerà domani. (Ama lo stile ' + likes + '.)';
+    else if (s <= 2) msg = 'Ti fa un piccolo sorriso e lascia qualche centesimo di mancia. Sembra apprezzare un tocco ' + likes + '.';
+    else if (s === 3) msg = '«Quelle élégance !» Ti racconta un ricordo di quartiere e lascia una mancia generosa. Manca pochissimo.';
+    else msg = 'Harmonie parfaite ! Ti prende la mano e ti affida ' + c.secret + '. Nuova ricetta nel carnet.';
+    $('reaction').innerHTML = '<span class="who">' + c.name + '</span> · ' + msg;
+  }
+
+  chips('c-hair', HAIR, 0, it => { state.hair = it; show('hf-', HAIR.map(h => h.id), it.id); show('hb-', HAIR.map(h => h.id), it.id); score(); });
+  chips('c-hcol', [{name:'Castano', c:'#5a3a2a'}, {name:'Nero', c:'#22201f'}, {name:'Rame', c:'#b4572e'}, {name:'Biondo', c:'#d9b26a'}, {name:'Lilla', c:'#a58bd0'}], 0, it => setVars(av, {'--hair':it.c}), it => it.c);
+  chips('c-skin', [{name:'Chiara', c:'#f6d7bf'}, {name:'Dorata', c:'#e8b98f'}, {name:'Ambrata', c:'#c58c62'}, {name:'Scura', c:'#8a5a3c'}, {name:'Ebano', c:'#5c3a28'}], 1, it => setVars(av, {'--skin':it.c}), it => it.c);
+  chips('c-outfit', OUT, 0, it => { state.out = it; show('o-', OUT.map(o => o.id), it.id); score(); });
+  chips('c-acc', ACC, 0, it => { state.acc = it; show('a-', ACC.map(a => a.id), it.id); score(); });
+
+  const cw = $('customers');
+  CUST.forEach((c, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'cust'; b.id = 'cust-' + c.id;
+    b.setAttribute('aria-pressed', String(i === 0));
+    b.innerHTML = '<b>' + c.name + '</b><span>' + c.note + '</span>';
+    b.addEventListener('click', () => { cw.querySelectorAll('.cust').forEach(x => x.setAttribute('aria-pressed', 'false')); b.setAttribute('aria-pressed', 'true'); state.cust = c; score(); });
+    cw.appendChild(b);
+  });
+  state.cust = CUST[0]; score();
+})();
+</script>
