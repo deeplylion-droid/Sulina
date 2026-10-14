@@ -68,14 +68,14 @@ section{padding-block:56px 8px; display:flex; flex-direction:column; gap:24px; b
 .pillars h3{font-size:1.05rem}
 .lineup{display:grid; grid-template-columns:repeat(4, 1fr); gap:14px}
 .lcard{background:var(--card); border:1px solid var(--line); border-radius:18px; overflow:hidden; display:flex; flex-direction:column; min-width:0}
-.lcard .art{aspect-ratio:400/560; max-width:100%}
+.lcard .art{aspect-ratio:280/524; max-width:100%}
 .lcard svg{width:100%; height:100%; display:block}
 .lcard .who{padding:10px 14px 14px; display:flex; flex-direction:column}
 .lcard b{font-size:.98rem}
 .lcard span{font-size:.8rem; color:var(--muted)}
 .exprs{display:grid; grid-template-columns:repeat(4, 1fr); gap:12px}
 .exprs figure{margin:0; background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden}
-.exprs .art{aspect-ratio:200/210}
+.exprs .art{aspect-ratio:120/128}
 .exprs svg{width:100%; height:100%; display:block}
 .exprs figcaption{font-size:.82rem; font-weight:700; padding:8px 12px; text-align:center}
 .note-box{background:var(--card); border-left:4px solid var(--accent); border-radius:0 12px 12px 0; padding:16px 20px; display:flex; flex-direction:column; gap:8px}
@@ -148,7 +148,7 @@ section{padding-block:56px 8px; display:flex; flex-direction:column; gap:24px; b
 /* character */
 .char{display:grid; grid-template-columns:minmax(0, 330px) 1fr; gap:22px; align-items:start}
 .char > *{min-width:0}
-.char-stage{border-radius:18px; overflow:hidden; aspect-ratio:400/530; box-shadow:0 18px 40px -22px rgba(60,30,80,.5)}
+.char-stage{border-radius:18px; overflow:hidden; aspect-ratio:280/524; box-shadow:0 18px 40px -22px rgba(60,30,80,.5)}
 .char-stage svg{width:100%; height:100%; display:block}
 .meter{display:flex; gap:6px; align-items:center; flex-wrap:wrap}
 .cups{display:inline-flex; gap:4px}
@@ -372,8 +372,8 @@ td:first-child{font-family:var(--f-display); font-size:1.02rem; white-space:nowr
       <path d="M160 520 L420 520 L760 720 L300 720 Z" fill="#fff" opacity=".18" filter="url(#sc-b16)"/>
 
       <!-- characters -->
-      <g id="sc-odette" transform="translate(250 236) scale(.96)"></g>
-      <g id="sc-barista" transform="translate(740 128)"></g>
+      <g id="sc-odette" transform="translate(210 236) scale(1.15)"></g>
+      <g id="sc-barista" transform="translate(710 194) scale(1.15)"></g>
 
       <!-- counter -->
       <rect x="600" y="480" width="680" height="240" fill="url(#sc-ct)"/>
@@ -482,7 +482,7 @@ td:first-child{font-family:var(--f-display); font-size:1.02rem; white-space:nowr
   <div class="stack">
     <span class="eyebrow">Direzione artistica</span>
     <h2>Illustrato morbido, ispirato a Heartopia</h2>
-    <p>Da Heartopia prendiamo l'atmosfera: colori pastello luminosi, luce morbida, personaggi in stile anime con testa grande ed espressiva, e tanta personalizzazione. Noi la rendiamo in 2D illustrato: niente colori piatti, ma volumi, riflessi, luce di contorno e sfondi sfocati come in una foto.</p>
+    <p>Da Heartopia prendiamo l'atmosfera: colori pastello luminosi, luce morbida, personaggi in stile anime, e tanta personalizzazione. Le proporzioni le spostiamo verso un look da teen anime, meno infantile. Noi la rendiamo in 2D illustrato: niente colori piatti, ma volumi, riflessi, luce di contorno e sfondi sfocati come in una foto.</p>
   </div>
   <div class="lineup">
     <article class="lcard"><div class="art" id="l1"></div><div class="who"><b>La barista</b><span>il tuo personaggio, look di partenza</span></div></article>
@@ -491,8 +491,8 @@ td:first-child{font-family:var(--f-display); font-size:1.02rem; white-space:nowr
     <article class="lcard"><div class="art" id="l4"></div><div class="who"><b>Inès</b><span>studentessa d'arte</span></div></article>
   </div>
   <div class="pillars">
-    <div><h3>Proporzioni chibi morbide</h3><p>Circa tre teste e mezza: la testa grande regge le espressioni nei dialoghi, il corpo resta abbastanza lungo per leggere gonne, cappotti e scarpe.</p></div>
-    <div><h3>Occhi lucidi a strati</h3><p>Iride sfumata dal blu notte al celeste, pupilla morbida, due riflessi bianchi e una codina sulle ciglia. È il dettaglio che dà vita al viso.</p></div>
+    <div><h3>Proporzioni da teen anime</h3><p>Circa cinque teste e mezza: viso a cuore con il mento appuntito, collo sottile, spalle e vita definite, gambe lunghe. Gonne, cappotti e scarpe si leggono bene.</p></div>
+    <div><h3>Occhi anime allungati</h3><p>Occhi grandi ma a mandorla, con l'iride tagliata dalla palpebra, ciglia spesse con la codina, sfumatura dal blu notte al celeste e due riflessi bianchi.</p></div>
     <div><h3>Capelli a ciocche</h3><p>Ogni ciocca sfuma dalla radice alla punta, con il riflesso ad anello tipico degli anime e qualche filo di luce.</p></div>
     <div><h3>Ombre colorate</h3><p>Le ombre non sono grigie ma rosate e lilla, con luce di contorno sui bordi: la pelle sembra calda e i vestiti hanno volume.</p></div>
     <div><h3>Profondità come in foto</h3><p>Sfondi sfocati con bokeh, piante fuori fuoco in primo piano, raggi di luce dalla finestra. La scena resta 2D ma ha spessore.</p></div>
@@ -874,48 +874,52 @@ td:first-child{font-family:var(--f-display); font-size:1.02rem; white-space:nowr
   const dk = (c, t) => mix(c, '#2a1838', t);
   const lt = (c, t) => mix(c, '#fffaf4', t);
 
-  /* ---------- character geometry (400 x 560 canvas) ---------- */
+  /* ---------- character geometry (400 x 560 canvas, teen anime proportions: about 5.5 heads) ---------- */
   const G = {
-    face:'M128 140 C128 92 162 70 200 70 C238 70 272 92 272 140 C272 176 252 204 222 214 C212 218 206 220 200 220 C194 220 188 218 178 214 C148 204 128 176 128 140 Z',
-    neck:'M185 200 L215 200 L217 242 L183 242 Z',
-    torso:'M150 252 C154 238 170 232 184 232 L216 232 C230 232 246 238 250 252 L258 304 C258 314 250 320 240 320 L160 320 C150 320 142 314 142 304 Z',
-    skirt:'M150 308 L250 308 L272 394 C242 408 158 408 128 394 Z',
-    skirtLong:'M150 308 L250 308 L282 468 C246 484 154 484 118 468 Z',
-    pants:'M152 308 L248 308 L254 478 L210 478 L203 368 L197 368 L190 478 L146 478 Z',
-    bib:'M174 258 L226 258 L230 320 L170 320 Z',
-    apron:'M160 316 L240 316 L252 388 C226 396 174 396 148 388 Z',
-    collarL:'M200 236 C192 254 170 258 160 244 C168 234 186 230 200 236 Z',
-    collarR:'M200 236 C208 254 230 258 240 244 C232 234 214 230 200 236 Z',
-    sailor:'M164 238 L200 274 L236 238 L250 258 L200 296 L150 258 Z',
-    high:'M186 220 L214 220 L216 244 L184 244 Z',
-    cup:'M184 300 L216 300 L213 328 C212 334 206 338 200 338 C194 338 188 334 187 328 Z',
-    lockL:'M128 112 C114 140 112 180 120 214 C124 232 136 244 148 240 C138 228 136 214 140 200 C142 176 140 146 146 120 Z',
-    lockR:'M272 112 C286 140 288 180 280 214 C276 232 264 244 252 240 C262 228 264 214 260 200 C258 176 260 146 254 120 Z',
-    lockLongL:'M128 112 C112 150 110 210 118 262 C122 286 134 298 148 294 C136 280 134 262 138 244 C142 200 140 150 146 120 Z',
-    lockLongR:'M272 112 C288 150 290 210 282 262 C278 286 266 298 252 294 C264 280 266 262 262 244 C258 200 260 150 254 120 Z',
-    burnL:'M126 116 C120 140 122 160 130 174 C134 156 134 136 140 120 Z',
-    burnR:'M274 116 C280 140 278 160 270 174 C266 156 266 136 260 120 Z',
-    bunCap:'M120 146 C116 96 150 62 200 62 C250 62 284 96 280 146 C272 122 256 104 232 98 C214 94 190 96 176 102 C158 108 134 122 120 146 Z',
+    face:'M160 84 C160 57 178 43 200 43 C222 43 240 57 240 84 C240 101 236 111 230 119 C221 127 210 132 200 133 C190 132 179 127 170 119 C164 111 160 101 160 84 Z',
+    neck:'M192 118 L208 118 L209 154 L191 154 Z',
+    torso:'M150 164 C154 153 172 149 186 149 L214 149 C228 149 246 153 250 164 L240 198 C234 208 229 213 227 220 L173 220 C171 213 166 208 160 198 Z',
+    skirt:'M174 214 L226 214 L252 328 C228 338 172 338 148 328 Z',
+    skirtLong:'M174 214 L226 214 L262 466 C232 478 168 478 138 466 Z',
+    pants:'M174 214 L226 214 L231 300 L227 502 L205 502 L201 268 L199 268 L195 502 L173 502 L169 300 Z',
+    legL:'M178 258 C176 300 180 350 182 392 C181 420 183 460 186 496 L194 496 C195 462 197 420 196 392 C198 350 200 300 199 258 Z',
+    legR:'M222 258 C224 300 220 350 218 392 C219 420 217 460 214 496 L206 496 C205 462 203 420 204 392 C202 350 200 300 201 258 Z',
+    sockL:'M182 404 C181 430 183 462 186 496 L194 496 C195 462 197 430 196 404 Z',
+    sockR:'M218 404 C219 430 217 462 214 496 L206 496 C205 462 203 430 204 404 Z',
+    bib:'M184 170 L216 170 L220 220 L180 220 Z',
+    apron:'M176 218 L224 218 L236 318 C216 325 184 325 164 318 Z',
+    collarL:'M200 151 C195 163 182 166 175 157 C181 150 192 148 200 151 Z',
+    collarR:'M200 151 C205 163 218 166 225 157 C219 150 208 148 200 151 Z',
+    sailor:'M178 152 L200 176 L222 152 L232 166 L200 194 L168 166 Z',
+    high:'M191 132 L209 132 L210 154 L190 154 Z',
+    cup:'M191 212 L209 212 L207.5 228 C207 231 204 233 200 233 C196 233 193 231 192.5 228 Z',
+    lockL:'M157 70 C148 94 146 122 150 148 C152 160 158 168 167 168 C161 158 161 146 163 132 C165 112 165 90 170 74 Z',
+    lockR:'M243 70 C252 94 254 122 250 148 C248 160 242 168 233 168 C239 158 239 146 237 132 C235 112 235 90 230 74 Z',
+    lockLongL:'M157 70 C146 100 144 150 148 198 C150 214 158 224 168 224 C162 210 160 192 162 172 C164 132 164 92 170 74 Z',
+    lockLongR:'M243 70 C254 100 256 150 252 198 C250 214 242 224 232 224 C238 210 240 192 238 172 C236 132 236 92 230 74 Z',
+    burnL:'M156 76 C152 90 153 102 158 112 C159 100 160 88 164 80 Z',
+    burnR:'M244 76 C248 90 247 102 242 112 C241 100 240 88 236 80 Z',
+    bunCap:'M156 98 C152 60 174 38 200 38 C226 38 248 60 244 98 C238 78 227 66 212 61 C200 58 186 59 176 65 C167 71 160 82 156 98 Z',
     beret:'M144 80 C138 54 182 34 230 36 C274 38 296 58 288 80 C280 98 232 104 194 98 C164 94 148 92 144 80 Z'
   };
   const BACK = {
-    bob:'M112 150 C104 92 140 50 200 48 C260 50 296 92 288 150 C294 188 298 222 288 246 C280 262 266 262 260 250 C254 262 238 262 234 248 L166 248 C162 262 146 262 140 250 C134 262 120 262 112 246 C102 222 106 188 112 150 Z',
-    long:'M112 150 C104 92 140 50 200 48 C260 50 296 92 288 150 C300 210 306 280 296 330 C288 350 272 348 268 334 C262 352 244 350 242 336 L158 336 C156 350 138 352 132 334 C128 348 112 350 104 330 C94 280 100 210 112 150 Z',
-    short:'M116 148 C110 92 146 52 200 50 C254 52 290 92 284 148 C288 170 284 190 274 200 L126 200 C116 190 112 170 116 148 Z',
-    bun:'M120 150 C116 96 150 58 200 58 C250 58 284 96 280 150 C282 170 278 186 270 194 L130 194 C122 186 118 170 120 150 Z'
+    bob:'M150 92 C146 52 170 28 200 28 C230 28 254 52 250 92 C254 118 256 140 250 158 C244 168 234 168 230 160 C226 168 214 170 210 162 L190 162 C186 170 174 168 170 160 C166 168 156 168 150 158 C144 140 146 118 150 92 Z',
+    long:'M150 92 C146 52 170 28 200 28 C230 28 254 52 250 92 C258 150 262 230 254 300 C250 314 240 314 236 304 C232 316 220 316 218 304 L182 304 C180 316 168 316 164 304 C160 314 150 314 146 300 C138 230 142 150 150 92 Z',
+    short:'M153 90 C149 50 172 30 200 30 C228 30 251 50 247 90 C249 104 247 116 241 122 L159 122 C153 116 151 104 153 90 Z',
+    bun:'M155 92 C152 56 174 36 200 36 C226 36 248 56 245 92 C246 104 243 114 238 118 L162 118 C157 114 154 104 155 92 Z'
   };
   const TIPS = {
-    long:[[280,128],[262,112],[242,100],[220,96],[196,102],[172,112],[150,124],[124,140]],
-    short:[[278,116],[258,100],[236,90],[212,88],[188,92],[164,98],[142,108],[122,120]]
+    long:[[249,100],[239,84],[227,74],[215,77],[202,69],[189,75],[177,73],[165,84],[152,100]],
+    short:[[247,86],[237,72],[225,62],[213,66],[200,60],[187,65],[175,63],[163,72],[154,86]]
   };
   function bangs(tips, top){
     let d = 'M' + tips[0][0] + ' ' + tips[0][1];
     for (let i = 1; i < tips.length; i++){
       const a = tips[i - 1], b = tips[i];
-      d += ` C${a[0] - 5} ${a[1] - 18} ${b[0] + 5} ${b[1] - 18} ${b[0]} ${b[1]}`;
+      d += ` C${a[0] - 3} ${a[1] - 12} ${b[0] + 3} ${b[1] - 12} ${b[0]} ${b[1]}`;
     }
     const L = tips[tips.length - 1], R = tips[0];
-    return d + ` C${L[0] - 6} ${top + 34} 146 ${top} 200 ${top} C254 ${top} ${R[0] + 6} ${top + 34} ${R[0]} ${R[1]} Z`;
+    return d + ` C${L[0] - 4} ${top + 26} 170 ${top} 200 ${top} C230 ${top} ${R[0] + 4} ${top + 26} ${R[0]} ${R[1]} Z`;
   }
   function bow(x, y, s, c){
     return `<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 0 C-10 -12 -24 -8 -22 1 C-20 10 -8 8 0 0 Z M0 0 C10 -12 24 -8 22 1 C20 10 8 8 0 0 Z" fill="${c}"/>` +
@@ -937,36 +941,41 @@ td:first-child{font-family:var(--f-display); font-size:1.02rem; white-space:nowr
     ines:{top:'#f3e7d6', collar:'high', sleeves:'long', skirt:'#3a3550', bottom:'skirt'}
   };
   const ACC_COLORS = {none:'#ec8fa3', beret:'#ec8fa3', cloche:'#7d5c93', paille:'#7fb8a0', fiocco:'#e46a7f'};
-  const DEF = {skin:SKINS.pesca, hair:HAIRS.castano, eyes:EYES.acqua, hairStyle:'bob', acc:'beret', accColor:'#ec8fa3', outfit:OUTFITS.barista, expr:'smile', lash:'#3b2231', glasses:false, freckles:true, cup:true, shoe:'#8a3a52'};
+  const DEF = {skin:SKINS.pesca, hair:HAIRS.castano, eyes:EYES.acqua, hairStyle:'bob', acc:'beret', accColor:'#ec8fa3', outfit:OUTFITS.barista, expr:'smile', lash:'#3b2231', glasses:false, freckles:true, cup:true, shoe:'#8a3a52', soft:false};
   const ODETTE = {skin:SKINS.chiara, hair:HAIRS.grigio, eyes:EYES.viola, hairStyle:'bun', acc:'none', outfit:OUTFITS.odette, expr:'happy', glasses:true, freckles:false, shoe:'#5a3a4a'};
-  const YANNICK = {skin:SKINS.dorata, hair:HAIRS.biondo, eyes:EYES.acqua, hairStyle:'short', acc:'beret', accColor:'#2f4386', outfit:OUTFITS.yannick, expr:'wink', freckles:true, shoe:'#6a4630', lash:'#3a2a20'};
+  const YANNICK = {skin:SKINS.dorata, hair:HAIRS.biondo, eyes:EYES.acqua, hairStyle:'short', acc:'beret', accColor:'#2f4386', outfit:OUTFITS.yannick, expr:'wink', freckles:true, shoe:'#6a4630', lash:'#3a2a20', soft:true};
   const INES = {skin:SKINS.ambrata, hair:HAIRS.nero, eyes:EYES.ambra, hairStyle:'long', acc:'beret', accColor:'#d23c55', outfit:OUTFITS.ines, expr:'smile', freckles:false, shoe:'#2a2430'};
 
   const MOUTH = {
-    smile:'<path d="M190 189 C194 196 206 196 210 189 C204 192 196 192 190 189 Z" fill="#c2566a"/><path d="M195 192.5 C198 194.5 202 194.5 205 192.5 C202 191.8 198 191.8 195 192.5 Z" fill="#f08a9a"/>',
-    happy:'<path d="M186 186 C189 201 211 201 214 186 C206 190 194 190 186 186 Z" fill="#b84c62"/><path d="M193 195 C197 199 203 199 207 195 C203 193 197 193 193 195 Z" fill="#f28a9a"/>',
-    surprised:'<ellipse cx="200" cy="192" rx="5.5" ry="7" fill="#b84c62"/><ellipse cx="200" cy="195" rx="3.5" ry="3" fill="#f28a9a"/>'
+    smile:'<path d="M195 117 C198 119.6 202 119.6 205 117" stroke="#b5546a" stroke-width="1.7" fill="none" stroke-linecap="round"/><path d="M198 121 Q200 121.8 202 121" stroke="#e8a0a8" stroke-width="1" fill="none" stroke-linecap="round"/>',
+    happy:'<path d="M194 115 C195.5 122.5 204.5 122.5 206 115 C202 116.6 198 116.6 194 115 Z" fill="#b84c62"/><path d="M197 119.2 C199 120.8 201 120.8 203 119.2 C201 118.4 199 118.4 197 119.2 Z" fill="#f28a9a"/>',
+    surprised:'<ellipse cx="200" cy="118" rx="2.8" ry="3.6" fill="#b84c62"/><ellipse cx="200" cy="119.4" rx="1.8" ry="1.6" fill="#f28a9a"/>'
   };
 
   function eye(cx, cy, flip, kind, p, I, U){
-    const lash = p.lash;
-    if (kind === 'closed') return `<g transform="translate(${cx} ${cy}) scale(${flip} 1)"><path d="M-19 4 C-12 -10 12 -12 20 0" stroke="${lash}" stroke-width="4.5" fill="none" stroke-linecap="round"/><path d="M19 0 l7 -5" stroke="${lash}" stroke-width="3" stroke-linecap="round"/><path d="M-12 12 C-4 15 6 15 13 11" stroke="${p.skin[2]}" stroke-width="1.4" fill="none" opacity=".6"/></g>`;
-    const k = kind === 'surprised' ? .74 : 1;
-    const sc = 'M-20 -4 C-20 -18 -10 -25 1 -25 C13 -25 21 -16 21 -2 C21 15 12 24 0 24 C-12 24 -20 13 -20 -4 Z';
+    const lash = p.lash, s = .88;
+    const tr = `translate(${cx} ${cy}) scale(${flip * s} ${s})`;
+    if (kind === 'closed') return `<g transform="${tr}"><path d="M-12 1 C-6 -6 6 -7 13 -1" stroke="${lash}" stroke-width="2.8" fill="none" stroke-linecap="round"/>` +
+      (p.soft ? '' : `<path d="M12.5 -1 l4.5 -3.2" stroke="${lash}" stroke-width="2" stroke-linecap="round"/>`) + `</g>`;
+    const k = kind === 'surprised' ? .72 : 1;
+    const sc = 'M-12 -1 C-10 -8 -3 -10 3 -10 C9 -10 12.5 -6 13 -1 C12 5 7 8 1 8 C-5 8 -10 5 -12 -1 Z';
     const cid = I('eye' + (flip > 0 ? 'r' : 'l'));
-    return `<g transform="translate(${cx} ${cy}) scale(${flip} 1)">` +
-      `<clipPath id="${cid}"><path d="${sc}"/></clipPath><path d="${sc}" fill="#fffdfb"/>` +
+    const lashPath = p.soft
+      ? 'M-13 0 C-11 -8 -4 -11.5 3 -11.5 C10 -11.5 14 -7.5 15 -3 C13 -6.5 9 -9.5 3 -9.8 C-4 -10 -9.5 -6.5 -12 .5 Z'
+      : 'M-14 0 C-12 -9 -4 -12.5 3 -12.5 C10 -12.5 14.5 -8 16 -3 L19.5 -5.5 C18.5 -1.5 16.5 1 14 2 C13 -5 9 -9.5 3 -9.8 C-4 -10 -9.5 -6.5 -12 .5 Z';
+    return `<g transform="${tr}"><clipPath id="${cid}"><path d="${sc}"/></clipPath><path d="${sc}" fill="#fffdfb"/>` +
       `<g clip-path="url(#${cid})">` +
-        `<ellipse cx="1" cy="2" rx="${16 * k}" ry="${20 * k}" fill="${U('iris')}"/>` +
-        `<ellipse cx="1" cy="2" rx="${16 * k}" ry="${20 * k}" fill="none" stroke="${p.eyes[0]}" stroke-width="2" opacity=".7"/>` +
-        `<ellipse cx="1" cy="3" rx="${7 * k}" ry="${10 * k}" fill="#1d1430" opacity=".85"/>` +
-        `<ellipse cx="1" cy="${2 + 13 * k}" rx="${11 * k}" ry="${6 * k}" fill="${p.eyes[2]}" opacity=".85" filter="${U('b2')}"/>` +
-        `<ellipse cx="0" cy="-24" rx="26" ry="11" fill="#3a2246" opacity=".35" filter="${U('b2')}"/>` +
+        `<ellipse cx="1" cy=".5" rx="${7.2 * k}" ry="${9.6 * k}" fill="${U('iris')}"/>` +
+        `<ellipse cx="1" cy=".5" rx="${7.2 * k}" ry="${9.6 * k}" fill="none" stroke="${p.eyes[0]}" stroke-width="1.2" opacity=".75"/>` +
+        `<ellipse cx="1" cy="1" rx="${3.2 * k}" ry="${5 * k}" fill="#1d1430" opacity=".85"/>` +
+        `<ellipse cx="1" cy="${1 + 4.6 * k}" rx="${5 * k}" ry="${2.6 * k}" fill="${p.eyes[2]}" opacity=".9" filter="${U('b1')}"/>` +
+        `<ellipse cx="0" cy="-9" rx="15" ry="5" fill="#3a2246" opacity=".4" filter="${U('b1')}"/>` +
       `</g>` +
-      `<path d="M-24 -4 C-20 -22 -6 -30 4 -29 C16 -28 24 -20 27 -10 L32 -15 C30 -6 27 -1 23 1 C21 -12 13 -22 2 -23 C-9 -24 -18 -16 -21 -2 Z" fill="${lash}"/>` +
-      `<path d="M-13 21 C-5 26 7 26 14 21" stroke="${lash}" stroke-width="1.6" fill="none" opacity=".5" stroke-linecap="round"/>` +
-      `<path d="M-15 -34 C-6 -39 10 -39 19 -32" stroke="${p.skin[2]}" stroke-width="1.5" fill="none" opacity=".7" stroke-linecap="round"/>` +
-      `</g><ellipse cx="${cx - 6}" cy="${cy - 8}" rx="5.5" ry="6.5" fill="#fff"/><circle cx="${cx + 7}" cy="${cy + 10}" r="2.6" fill="#fff"/><circle cx="${cx + 10}" cy="${cy - 12}" r="1.5" fill="#fff" opacity=".85"/>`;
+      `<path d="${lashPath}" fill="${lash}"/>` +
+      (p.soft ? '' : `<path d="M15 -7 l4 -3.2 M16.5 -3.6 l4.2 -1.2" stroke="${lash}" stroke-width="1.3" stroke-linecap="round"/>`) +
+      `<path d="M-6 7.6 C-1 9.6 5 9.6 10 6.8" stroke="${lash}" stroke-width="1" fill="none" opacity=".55" stroke-linecap="round"/>` +
+      `<path d="M-9 -14.5 C-3 -17.5 6 -17.5 12 -13.5" stroke="${p.skin[2]}" stroke-width="1" fill="none" opacity=".7" stroke-linecap="round"/></g>` +
+      `<ellipse cx="${cx - 2}" cy="${cy - 3.4}" rx="2.4" ry="2.9" fill="#fff"/><circle cx="${cx + 3.2}" cy="${cy + 3.4}" r="1.1" fill="#fff"/><circle cx="${cx + 4.4}" cy="${cy - 5}" r=".7" fill="#fff" opacity=".85"/>`;
   }
 
   function character(o, uid){
@@ -978,10 +987,11 @@ td:first-child{font-family:var(--f-display); font-size:1.02rem; white-space:nowr
     const topFill = f.pat ? U('pat') : f.top;
     const skirtFill = f.skirtPat ? U('spat') : f.skirt;
     const filt = (n, s) => `<filter id="${I('b' + n)}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="${s}"/></filter>`;
-    let d = '<defs>' + filt(1, 1.2) + filt(2, 2.5) + filt(4, 4.5) + filt(8, 9) +
+    let d = '<defs>' + filt(1, .8) + filt(2, 1.6) + filt(4, 3) + filt(8, 6) +
       `<radialGradient id="${I('skin')}" cx="42%" cy="36%" r="72%"><stop offset="0" stop-color="${S[0]}"/><stop offset=".7" stop-color="${S[1]}"/><stop offset="1" stop-color="${mix(S[1], S[2], .45)}"/></radialGradient>` +
+      `<linearGradient id="${I('leg')}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${S[0]}"/><stop offset=".55" stop-color="${S[1]}"/><stop offset="1" stop-color="${mix(S[1], S[2], .45)}"/></linearGradient>` +
       `<linearGradient id="${I('hb')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${H[1]}"/><stop offset="1" stop-color="${H[0]}"/></linearGradient>` +
-      `<linearGradient id="${I('hf')}" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="0" y2="300"><stop offset="0" stop-color="${H[1]}"/><stop offset=".2" stop-color="${H[2]}"/><stop offset=".42" stop-color="${H[1]}"/><stop offset="1" stop-color="${H[0]}"/></linearGradient>` +
+      `<linearGradient id="${I('hf')}" gradientUnits="userSpaceOnUse" x1="0" y1="28" x2="0" y2="240"><stop offset="0" stop-color="${H[1]}"/><stop offset=".16" stop-color="${H[2]}"/><stop offset=".38" stop-color="${H[1]}"/><stop offset="1" stop-color="${H[0]}"/></linearGradient>` +
       `<radialGradient id="${I('bun')}" cx="38%" cy="32%" r="72%"><stop offset="0" stop-color="${H[2]}"/><stop offset="1" stop-color="${H[0]}"/></radialGradient>` +
       `<linearGradient id="${I('iris')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${E[0]}"/><stop offset=".55" stop-color="${E[1]}"/><stop offset="1" stop-color="${E[2]}"/></linearGradient>` +
       `<radialGradient id="${I('blush')}"><stop offset="0" stop-color="#ff7f9a" stop-opacity=".55"/><stop offset="1" stop-color="#ff7f9a" stop-opacity="0"/></radialGradient>` +
@@ -993,120 +1003,122 @@ td:first-child{font-family:var(--f-display); font-size:1.02rem; white-space:nowr
       `<radialGradient id="${I('shoe')}" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="${lt(p.shoe, .35)}"/><stop offset="1" stop-color="${dk(p.shoe, .25)}"/></radialGradient>` +
       `<radialGradient id="${I('pearl')}" cx="35%" cy="30%"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e2d4d0"/></radialGradient>` +
       `<clipPath id="${I('cf')}"><path d="${G.face}"/></clipPath><clipPath id="${I('cn')}"><path d="${G.neck}"/></clipPath><clipPath id="${I('ct')}"><path d="${G.torso}"/></clipPath>`;
-    const dotsPat = (id, base) => `<pattern id="${I(id)}" patternUnits="userSpaceOnUse" width="14" height="14"><rect width="14" height="14" fill="${base}"/><circle cx="4" cy="4" r="1.8" fill="${f.pat2}"/><circle cx="11" cy="11" r="1.6" fill="#fffaf4"/></pattern>`;
-    if (f.pat === 'stripes') d += `<pattern id="${I('pat')}" patternUnits="userSpaceOnUse" width="16" height="16"><rect width="16" height="16" fill="${f.top}"/><rect y="9" width="16" height="5" fill="${f.pat2}"/></pattern>`;
+    const dotsPat = (id, base) => `<pattern id="${I(id)}" patternUnits="userSpaceOnUse" width="9" height="9"><rect width="9" height="9" fill="${base}"/><circle cx="2.5" cy="2.5" r="1.2" fill="${f.pat2}"/><circle cx="7" cy="7" r="1" fill="#fffaf4"/></pattern>`;
+    if (f.pat === 'stripes') d += `<pattern id="${I('pat')}" patternUnits="userSpaceOnUse" width="10" height="9"><rect width="10" height="9" fill="${f.top}"/><rect y="5" width="10" height="3" fill="${f.pat2}"/></pattern>`;
     if (f.pat === 'dots') d += dotsPat('pat', f.top);
     if (f.skirtPat === 'dots') d += dotsPat('spat', f.skirt);
     d += '</defs>';
 
     const pants = f.bottom === 'pants', long = f.bottom === 'long', longS = f.sleeves === 'long';
-    let b = `<ellipse cx="200" cy="498" rx="82" ry="12" fill="${ink}" opacity=".22"${blur(4)}/>`;
+    let b = `<ellipse cx="200" cy="510" rx="50" ry="7" fill="${ink}" opacity=".22"${blur(4)}/>`;
     // back hair
     b += `<path d="${BACK[hs]}" fill="${U('hb')}"/>`;
-    if (hs === 'bob' || hs === 'long') b += `<path d="M120 176 C114 206 118 232 128 ${hs === 'long' ? 320 : 248} M280 176 C286 206 282 232 272 ${hs === 'long' ? 320 : 248}" stroke="${H[2]}" stroke-width="2" fill="none" opacity=".35"/>`;
+    if (hs === 'bob' || hs === 'long') b += `<path d="M156 110 C152 130 153 ${hs === 'long' ? 250 : 146} 158 ${hs === 'long' ? 296 : 158} M244 110 C248 130 247 ${hs === 'long' ? 250 : 146} 242 ${hs === 'long' ? 296 : 158}" stroke="${H[2]}" stroke-width="1.4" fill="none" opacity=".35"/>`;
     // legs
     if (!pants){
-      const ly = long ? 440 : 380;
-      b += `<path d="M178 ${ly} L177 484 M222 ${ly} L223 484" stroke="${S[1]}" stroke-width="17" stroke-linecap="round"/>`;
-      b += `<path d="M174 ${ly + 8} L173.5 468 M218 ${ly + 8} L218.5 468" stroke="${S[0]}" stroke-width="5" stroke-linecap="round" opacity=".8"/>`;
-      if (!long) b += `<path d="M177 455 L177 484 M223 455 L223 484" stroke="#fffaf4" stroke-width="18" stroke-linecap="round"/><path d="M168.5 459 H185.5 M214.5 459 H231.5" stroke="#e6d8d2" stroke-width="2"/>`;
+      b += `<path d="${G.legL}" fill="${U('leg')}"/><path d="${G.legR}" fill="${U('leg')}"/>`;
+      b += `<ellipse cx="188" cy="392" rx="2.6" ry="7" fill="#fff" opacity=".3"/><ellipse cx="210" cy="392" rx="2.6" ry="7" fill="#fff" opacity=".3"/>`;
+      if (!long) b += `<path d="${G.sockL}" fill="#fffaf4"/><path d="${G.sockR}" fill="#fffaf4"/><path d="${G.sockL}" fill="${U('sh')}"/><path d="${G.sockR}" fill="${U('sh')}"/><path d="M182 409 H196 M204 409 H218" stroke="#e6d8d2" stroke-width="1.6"/>`;
     }
     // bottom
     if (pants){
-      b += `<path d="${G.pants}" fill="${skirtFill}"/><path d="${G.pants}" fill="${U('sh')}"/><path d="M176 330 L172 474 M224 330 L228 474" stroke="${dk(f.skirt, .3)}" stroke-width="2" opacity=".35"/>`;
+      b += `<path d="${G.pants}" fill="${skirtFill}"/><path d="${G.pants}" fill="${U('sh')}"/><path d="M186 236 L184 498 M214 236 L216 498" stroke="${dk(f.skirt, .3)}" stroke-width="1.4" opacity=".35"/>`;
     } else {
-      const sp = long ? G.skirtLong : G.skirt, y2 = long ? 470 : 398;
+      const sp = long ? G.skirtLong : G.skirt;
       b += `<path d="${sp}" fill="${skirtFill}"/><path d="${sp}" fill="${U('sh')}"/><path d="${sp}" fill="${U('vs')}"/>`;
-      b += `<path d="M174 316 L${long ? 152 : 160} ${y2 - 4} M200 316 L200 ${y2 + 4} M226 316 L${long ? 248 : 240} ${y2 - 4}" stroke="${dk(f.skirt, .35)}" stroke-width="2.4" opacity=".35"${blur(1)}/>`;
-      b += `<path d="${long ? 'M124 464 C158 478 242 478 276 464' : 'M134 391 C162 402 238 402 266 391'}" stroke="${lt(f.skirt, .35)}" stroke-width="3" fill="none" opacity=".7"/>`;
-      if (f.trim) b += `<path d="M140 380 L156 371 L172 380 L188 371 L200 378 L212 371 L228 380 L244 371 L260 380" stroke="${f.trim}" stroke-width="2.5" fill="none"/>`;
+      b += `<path d="${long ? 'M186 224 L160 468 M200 224 L200 474 M214 224 L240 468' : 'M186 222 L172 330 M200 222 L200 334 M214 222 L228 330'}" stroke="${dk(f.skirt, .35)}" stroke-width="1.6" opacity=".35"${blur(1)}/>`;
+      b += `<path d="${long ? 'M140 465 C170 476 230 476 260 465' : 'M150 327 C174 336 226 336 250 327'}" stroke="${lt(f.skirt, .35)}" stroke-width="2" fill="none" opacity=".7"/>`;
+      if (f.trim) b += `<path d="M156 318 L166 312 L176 318 L186 312 L196 318 L204 312 L214 318 L224 312 L234 318 L244 312" stroke="${f.trim}" stroke-width="1.8" fill="none"/>`;
     }
     // shoes
-    const shoe = `<path d="M160 486 C159 476 172 472 182 474 C192 476 195 486 193 494 C191 502 162 503 160 494 Z" fill="${U('shoe')}"/><path d="M167 479 L188 479" stroke="${dk(p.shoe, .3)}" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="171" cy="484" rx="5" ry="2.4" fill="#fff" opacity=".55"/>`;
-    b += `<g transform="translate(${pants ? -9 : 0} 0)">${shoe}</g><g transform="translate(${pants ? 409 : 400} 0) scale(-1 1)">${shoe}</g>`;
+    const shoe = `<path d="M181 496 C180 489 187 487 194 488 C200 489 202 497 200 505 C198 511 183 512 181 505 Z" fill="${U('shoe')}"/><path d="M185 492.5 L198 492.5" stroke="${dk(p.shoe, .3)}" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="186" cy="498" rx="3" ry="1.5" fill="#fff" opacity=".55"/>`;
+    b += `<g transform="translate(${pants ? -6 : 0} 0)">${shoe}</g><g transform="translate(${pants ? 406 : 400} 0) scale(-1 1)">${shoe}</g>`;
     // neck
-    b += `<path d="${G.neck}" fill="${S[1]}"/><g clip-path="${U('cn')}"><ellipse cx="200" cy="206" rx="26" ry="16" fill="${S[2]}" opacity=".7"${blur(2)}/></g>`;
+    b += `<path d="${G.neck}" fill="${S[1]}"/><g clip-path="${U('cn')}"><ellipse cx="200" cy="130" rx="14" ry="9" fill="${S[2]}" opacity=".75"${blur(2)}/></g>`;
     // torso
     b += `<path d="${G.torso}" fill="${topFill}"/><path d="${G.torso}" fill="${U('sh')}"/>`;
-    b += `<g clip-path="${U('ct')}"><ellipse cx="200" cy="236" rx="52" ry="14" fill="${ink}" opacity=".22"${blur(4)}/></g>`;
-    if (f.trim) b += `<path d="M152 300 L168 292 L184 300 L200 292 L216 300 L232 292 L248 300" stroke="${f.trim}" stroke-width="2.5" fill="none"/>`;
+    b += `<g clip-path="${U('ct')}"><ellipse cx="200" cy="152" rx="28" ry="7" fill="${ink}" opacity=".22"${blur(2)}/><path d="M170 190 C184 198 216 198 230 190" stroke="${ink}" stroke-width="5" fill="none" opacity=".1"${blur(2)}/></g>`;
+    if (f.trim) b += `<path d="M164 204 L174 198 L184 204 L194 198 L200 202 L206 198 L216 204 L226 198 L236 204" stroke="${f.trim}" stroke-width="1.8" fill="none"/>`;
+    if (!pants && !f.apron) b += `<path d="M173 213 H227 V221 H173 Z" fill="${dk(f.skirt, .18)}"/>`;
     // apron
     if (f.apron){
       const A = f.apron;
-      for (let i = 0; i < 8; i++){ const x = 154.5 + i * 13, y = 388 + 6 * (1 - Math.pow((x - 200) / 52, 2)) + 3; b += `<circle cx="${x}" cy="${y.toFixed(1)}" r="7" fill="${lt(A, .45)}"/>`; }
+      for (let i = 0; i < 9; i++){ const x = 168 + i * 8, y = 318 + 7 * (1 - Math.pow((x - 200) / 36, 2)) + 1; b += `<circle cx="${x}" cy="${y.toFixed(1)}" r="4.5" fill="${lt(A, .45)}"/>`; }
       b += `<path d="${G.apron}" fill="${A}"/><path d="${G.apron}" fill="${U('sh')}"/>`;
-      b += `<rect x="184" y="342" width="32" height="22" rx="6" fill="${lt(A, .2)}" stroke="${dk(A, .25)}" stroke-width="1.2" stroke-dasharray="2.5 2"/><path d="M200 356 c-4 -4 -9 0 -5 4 l5 4 l5 -4 c4 -4 -1 -8 -5 -4 Z" fill="#e46a7f"/>`;
-      b += `<path d="M176 260 L164 238 M224 260 L236 238" stroke="${A}" stroke-width="6" stroke-linecap="round"/>`;
-      b += `<path d="${G.bib}" fill="${A}"/><path d="${G.bib}" fill="${U('sh')}"/><path d="M174 259 H226" stroke="${lt(A, .4)}" stroke-width="2"/>`;
-      b += `<path d="M200 272 c-5 -5 -11 0 -6 5 l6 5 l6 -5 c5 -5 -1 -10 -6 -5 Z" fill="#fffaf4" opacity=".9"/>`;
+      b += `<rect x="192" y="262" width="16" height="11" rx="3" fill="${lt(A, .2)}" stroke="${dk(A, .25)}" stroke-width=".8" stroke-dasharray="1.6 1.2"/><path d="M200 269 c-2 -2 -4.5 0 -2.5 2 l2.5 2 l2.5 -2 c2 -2 -.5 -4 -2.5 -2 Z" fill="#e46a7f"/>`;
+      b += `<path d="M186 171 L178 152 M214 171 L222 152" stroke="${A}" stroke-width="3.5" stroke-linecap="round"/>`;
+      b += `<path d="${G.bib}" fill="${A}"/><path d="${G.bib}" fill="${U('sh')}"/><path d="M184 171 H216" stroke="${lt(A, .4)}" stroke-width="1.4"/>`;
+      b += `<path d="M200 182 c-2.5 -2.5 -5.5 0 -3 2.5 l3 2.5 l3 -2.5 c2.5 -2.5 -.5 -5 -3 -2.5 Z" fill="#fffaf4" opacity=".9"/>`;
     }
     // collar, pearls, tie
     const cc = f.collarColor || (f.collar === 'high' ? f.top : '#fffdf9');
-    if (f.collar === 'peter') b += `<g opacity=".18"${blur(2)} transform="translate(0 3)"><path d="${G.collarL}" fill="${ink}"/><path d="${G.collarR}" fill="${ink}"/></g><path d="${G.collarL}" fill="${cc}" stroke="${dk(cc, .12)}" stroke-width=".8"/><path d="${G.collarR}" fill="${cc}" stroke="${dk(cc, .12)}" stroke-width=".8"/>`;
-    if (f.collar === 'sailor') b += `<path d="${G.sailor}" fill="${cc}"/><path d="${G.sailor}" fill="${U('sh')}"/><path d="M168 246 L200 280 L232 246" stroke="#fffaf4" stroke-width="2.5" fill="none"/>`;
-    if (f.collar === 'high') b += `<path d="${G.high}" fill="${cc}"/><path d="${G.high}" fill="${U('sh')}"/><path d="M186 222 q3.5 -4 7 0 q3.5 -4 7 0 q3.5 -4 7 0 q3.5 -4 7 0" stroke="${dk(cc, .15)}" fill="none" stroke-width="1.2"/>`;
-    if (f.collar === 'none') b += `<path d="M184 234 C192 243 208 243 216 234" stroke="${dk(f.top, .3)}" stroke-width="2" fill="none" opacity=".6"/>`;
-    if (f.pearls){ let pr = ''; for (let i = 0; i <= 8; i++){ const t = i / 8, x = (1 - t) * (1 - t) * 182 + 2 * (1 - t) * t * 200 + t * t * 218, y = (1 - t) * (1 - t) * 238 + 2 * (1 - t) * t * 262 + t * t * 238; pr += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.4"/>`; } b += `<g fill="${U('pearl')}" stroke="#d8cac4" stroke-width=".6">${pr}</g>`; }
-    if (f.tie) b += bow(200, f.collar === 'sailor' ? 278 : 248, 1, f.tie);
+    if (f.collar === 'peter') b += `<g opacity=".18"${blur(2)} transform="translate(0 2)"><path d="${G.collarL}" fill="${ink}"/><path d="${G.collarR}" fill="${ink}"/></g><path d="${G.collarL}" fill="${cc}" stroke="${dk(cc, .12)}" stroke-width=".6"/><path d="${G.collarR}" fill="${cc}" stroke="${dk(cc, .12)}" stroke-width=".6"/>`;
+    if (f.collar === 'sailor') b += `<path d="${G.sailor}" fill="${cc}"/><path d="${G.sailor}" fill="${U('sh')}"/><path d="M181 159 L200 181 L219 159" stroke="#fffaf4" stroke-width="1.6" fill="none"/>`;
+    if (f.collar === 'high') b += `<path d="${G.high}" fill="${cc}"/><path d="${G.high}" fill="${U('sh')}"/><path d="M191 134 q2 -2.5 4 0 q2 -2.5 4 0 q2 -2.5 4 0 q2 -2.5 4 0 q1 -1.2 2 0" stroke="${dk(cc, .15)}" fill="none" stroke-width=".9"/>`;
+    if (f.collar === 'none') b += `<path d="M190 150 C195 156 205 156 210 150" stroke="${dk(f.top, .3)}" stroke-width="1.4" fill="none" opacity=".6"/>`;
+    if (f.pearls){ let pr = ''; for (let i = 0; i <= 8; i++){ const t = i / 8, x = (1 - t) * (1 - t) * 189 + 2 * (1 - t) * t * 200 + t * t * 211, y = (1 - t) * (1 - t) * 150 + 2 * (1 - t) * t * 166 + t * t * 150; pr += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2"/>`; } b += `<g fill="${U('pearl')}" stroke="#d8cac4" stroke-width=".4">${pr}</g>`; }
+    if (f.tie) b += bow(200, f.collar === 'sailor' ? 180 : 158, .55, f.tie);
     // arms, sleeves, cup, hands
-    const armL = p.cup ? 'M142 276 C134 302 148 320 176 324' : 'M142 276 C134 306 136 330 142 348';
-    const armR = p.cup ? 'M258 276 C266 302 252 320 224 324' : 'M258 276 C266 306 264 330 258 348';
-    b += `<path d="${armL} ${armR}" stroke="${longS ? topFill : S[1]}" stroke-width="${longS ? 18 : 14}" fill="none" stroke-linecap="round"/>`;
-    if (!longS) b += `<path d="${armL} ${armR}" stroke="${S[0]}" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7" transform="translate(-2 -1.5)"/>`;
-    else b += `<path d="${armL} ${armR}" stroke="${ink}" stroke-width="18" fill="none" stroke-linecap="round" opacity=".1" transform="translate(2 1)"/>`;
+    const armL = p.cup ? 'M155 166 C145 188 145 210 152 224 C160 234 174 234 187 226' : 'M155 166 C147 194 146 226 149 262';
+    const armR = p.cup ? 'M245 166 C255 188 255 210 248 224 C240 234 226 234 213 226' : 'M245 166 C253 194 254 226 251 262';
+    b += `<path d="${armL} ${armR}" stroke="${longS ? topFill : S[1]}" stroke-width="${longS ? 12 : 9}" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+    if (!longS) b += `<path d="${armL} ${armR}" stroke="${S[0]}" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".75" transform="translate(-1.2 -1)"/>`;
+    else b += `<path d="${armL} ${armR}" stroke="${ink}" stroke-width="12" fill="none" stroke-linecap="round" opacity=".1" transform="translate(1.5 1)"/>`;
     if (!longS){
-      b += `<ellipse cx="146" cy="262" rx="20" ry="22" fill="${topFill}"/><ellipse cx="254" cy="262" rx="20" ry="22" fill="${topFill}"/><ellipse cx="146" cy="262" rx="20" ry="22" fill="${U('sh')}"/><ellipse cx="254" cy="262" rx="20" ry="22" fill="${U('sh')}"/>`;
-      b += `<ellipse cx="146" cy="281" rx="14" ry="4.5" fill="${f.collar === 'sailor' ? cc : lt(f.top, .3)}"/><ellipse cx="254" cy="281" rx="14" ry="4.5" fill="${f.collar === 'sailor' ? cc : lt(f.top, .3)}"/>`;
+      b += `<ellipse cx="156" cy="172" rx="12" ry="13" fill="${topFill}"/><ellipse cx="244" cy="172" rx="12" ry="13" fill="${topFill}"/><ellipse cx="156" cy="172" rx="12" ry="13" fill="${U('sh')}"/><ellipse cx="244" cy="172" rx="12" ry="13" fill="${U('sh')}"/>`;
+      const cuff = f.collar === 'sailor' ? cc : lt(f.top, .3);
+      b += `<ellipse cx="155" cy="184" rx="9" ry="3" fill="${cuff}"/><ellipse cx="245" cy="184" rx="9" ry="3" fill="${cuff}"/>`;
     }
     if (p.cup){
-      b += `<path d="${G.cup}" fill="${U('cup')}" stroke="#d8c6c0" stroke-width="1"/><path d="M186 312 H214" stroke="#9cc7ad" stroke-width="5"/>`;
-      b += `<ellipse cx="200" cy="300" rx="16" ry="4.5" fill="#fff" stroke="#e2d4cc"/><ellipse cx="200" cy="301" rx="13" ry="3.2" fill="#b98458"/><path d="M200 303 l-3 -2.4 a1.6 1.6 0 0 1 3 -1.4 a1.6 1.6 0 0 1 3 1.4 Z" fill="#fff3e6"/>`;
-      b += `<path d="M194 292 C188 282 198 276 194 266 M206 292 C200 282 210 276 206 266" stroke="#fff" stroke-width="3" fill="none" opacity=".75" stroke-linecap="round"${blur(1)}/>`;
-      b += `<ellipse cx="180" cy="322" rx="10" ry="9" fill="${U('skin')}"/><ellipse cx="220" cy="322" rx="10" ry="9" fill="${U('skin')}"/>`;
+      b += `<path d="${G.cup}" fill="${U('cup')}" stroke="#d8c6c0" stroke-width=".6"/><path d="M192 220 H208" stroke="#9cc7ad" stroke-width="3"/>`;
+      b += `<ellipse cx="200" cy="212" rx="9" ry="2.6" fill="#fff" stroke="#e2d4cc" stroke-width=".6"/><ellipse cx="200" cy="212.6" rx="7.3" ry="1.8" fill="#b98458"/>`;
+      b += `<path d="M197 207 C194 201 199 197 197 191 M203 207 C200 201 205 197 203 191" stroke="#fff" stroke-width="2" fill="none" opacity=".75" stroke-linecap="round"${blur(1)}/>`;
+      b += `<ellipse cx="188" cy="226" rx="5.5" ry="5" fill="${U('skin')}"/><ellipse cx="212" cy="226" rx="5.5" ry="5" fill="${U('skin')}"/>`;
     } else {
-      b += `<ellipse cx="143" cy="352" rx="10" ry="9" fill="${U('skin')}"/><ellipse cx="257" cy="352" rx="10" ry="9" fill="${U('skin')}"/>`;
+      b += `<ellipse cx="149.5" cy="266" rx="5.5" ry="5.5" fill="${U('skin')}"/><ellipse cx="250.5" cy="266" rx="5.5" ry="5.5" fill="${U('skin')}"/>`;
     }
     // head
-    const front = hs === 'bun' ? G.bunCap : bangs(hs === 'short' ? TIPS.short : TIPS.long, hs === 'short' ? 58 : 56);
+    const front = hs === 'bun' ? G.bunCap : bangs(hs === 'short' ? TIPS.short : TIPS.long, hs === 'short' ? 34 : 32);
     let h = '';
-    if (hs === 'short' || hs === 'bun') h += `<ellipse cx="127" cy="158" rx="10" ry="14" fill="${S[1]}"/><ellipse cx="129" cy="158" rx="5" ry="8" fill="${S[2]}" opacity=".5"/><ellipse cx="273" cy="158" rx="10" ry="14" fill="${S[1]}"/><ellipse cx="271" cy="158" rx="5" ry="8" fill="${S[2]}" opacity=".5"/>`;
+    if (hs === 'short' || hs === 'bun') h += `<ellipse cx="160.5" cy="96" rx="5" ry="8" fill="${S[1]}"/><ellipse cx="161.5" cy="96" rx="2.5" ry="4.5" fill="${S[2]}" opacity=".5"/><ellipse cx="239.5" cy="96" rx="5" ry="8" fill="${S[1]}"/><ellipse cx="238.5" cy="96" rx="2.5" ry="4.5" fill="${S[2]}" opacity=".5"/>`;
     h += `<path d="${G.face}" fill="${U('skin')}"/>`;
-    h += `<g clip-path="${U('cf')}"><ellipse cx="276" cy="166" rx="36" ry="80" fill="${S[2]}" opacity=".45"${blur(8)}/><path d="${front}" transform="translate(0 10)" fill="${S[2]}" opacity=".6"${blur(2)}/>` +
-      (p.acc === 'paille' ? `<ellipse cx="200" cy="98" rx="90" ry="12" fill="${ink}" opacity=".18"${blur(4)}/>` : '') +
-      `<ellipse cx="124" cy="150" rx="10" ry="52" fill="#fff" opacity=".55"${blur(4)}/></g>`;
-    h += `<ellipse cx="154" cy="182" rx="18" ry="10" fill="${U('blush')}"/><ellipse cx="246" cy="182" rx="18" ry="10" fill="${U('blush')}"/>`;
-    h += `<path d="M148 178 l-4 7 M154 178 l-4 7 M160 178 l-4 7 M240 178 l-4 7 M246 178 l-4 7 M252 178 l-4 7" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".7"/>`;
-    if (p.freckles) h += `<g fill="${S[2]}" opacity=".7"><circle cx="160" cy="170" r="1.3"/><circle cx="167" cy="173" r="1.2"/><circle cx="174" cy="170" r="1.3"/><circle cx="226" cy="170" r="1.3"/><circle cx="233" cy="173" r="1.2"/><circle cx="240" cy="170" r="1.3"/></g>`;
+    h += `<g clip-path="${U('cf')}"><ellipse cx="246" cy="98" rx="20" ry="46" fill="${S[2]}" opacity=".45"${blur(8)}/><path d="${front}" transform="translate(0 6)" fill="${S[2]}" opacity=".6"${blur(2)}/>` +
+      (p.acc === 'paille' ? `<ellipse cx="200" cy="64" rx="50" ry="7" fill="${ink}" opacity=".18"${blur(4)}/>` : '') +
+      `<ellipse cx="158" cy="88" rx="5" ry="30" fill="#fff" opacity=".5"${blur(4)}/></g>`;
+    h += `<ellipse cx="179" cy="108" rx="9" ry="4.5" fill="${U('blush')}"/><ellipse cx="221" cy="108" rx="9" ry="4.5" fill="${U('blush')}"/>`;
+    h += `<path d="M175 106 l-2 4 M179 106 l-2 4 M183 106 l-2 4 M217 106 l-2 4 M221 106 l-2 4 M225 106 l-2 4" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity=".7"/>`;
+    if (p.freckles) h += `<g fill="${S[2]}" opacity=".7"><circle cx="176" cy="103" r=".8"/><circle cx="180" cy="105" r=".75"/><circle cx="184" cy="103" r=".8"/><circle cx="216" cy="103" r=".8"/><circle cx="220" cy="105" r=".75"/><circle cx="224" cy="103" r=".8"/></g>`;
     const ex = p.expr;
     const kl = ex === 'happy' || ex === 'wink' ? 'closed' : ex === 'surprised' ? 'surprised' : 'open';
     const kr = ex === 'happy' ? 'closed' : ex === 'surprised' ? 'surprised' : 'open';
-    h += eye(168, 152, -1, kl, p, I, U) + eye(232, 152, 1, kr, p, I, U);
-    h += `<path d="M199 172 C201 175 201 177 198 178" stroke="${S[2]}" stroke-width="2" fill="none" stroke-linecap="round" opacity=".85"/>`;
+    h += eye(181, 92, -1, kl, p, I, U) + eye(219, 92, 1, kr, p, I, U);
+    h += `<path d="M200.5 103 L202 107 L199.6 107.6" stroke="${S[2]}" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>`;
     h += MOUTH[ex === 'smile' ? 'smile' : ex === 'surprised' ? 'surprised' : 'happy'];
-    if (p.glasses) h += `<g fill="#fff" fill-opacity=".08" stroke="#c9a15a" stroke-width="2.6"><circle cx="168" cy="152" r="28"/><circle cx="232" cy="152" r="28"/></g><path d="M196 148 Q200 143 204 148" stroke="#c9a15a" stroke-width="2.6" fill="none"/><path d="M150 140 l10 -10 M214 140 l10 -10" stroke="#fff" stroke-width="2.4" opacity=".7" stroke-linecap="round"/>`;
+    if (p.glasses) h += `<g fill="#fff" fill-opacity=".08" stroke="#c9a15a" stroke-width="1.6"><circle cx="181" cy="92" r="14"/><circle cx="219" cy="92" r="14"/></g><path d="M195 90 Q200 86.5 205 90" stroke="#c9a15a" stroke-width="1.6" fill="none"/><path d="M172 86 l5 -5 M210 86 l5 -5" stroke="#fff" stroke-width="1.4" opacity=".7" stroke-linecap="round"/>`;
     // hair front
-    if (hs === 'bob') h += `<path d="${G.lockL}" fill="${U('hf')}"/><path d="${G.lockR}" fill="${U('hf')}"/>`;
-    if (hs === 'long') h += `<path d="${G.lockLongL}" fill="${U('hf')}"/><path d="${G.lockLongR}" fill="${U('hf')}"/>`;
+    if (hs === 'bob') h += `<path d="${G.lockL}" fill="${U('hf')}"/><path d="${G.lockR}" fill="${U('hf')}"/><path d="M162 100 C158 120 158 140 162 156 M238 100 C242 120 242 140 238 156" stroke="${H[0]}" stroke-width="1" fill="none" opacity=".3"/>`;
+    if (hs === 'long') h += `<path d="${G.lockLongL}" fill="${U('hf')}"/><path d="${G.lockLongR}" fill="${U('hf')}"/><path d="M162 100 C156 140 156 180 160 212 M238 100 C244 140 244 180 240 212" stroke="${H[0]}" stroke-width="1" fill="none" opacity=".3"/>`;
     if (hs === 'short') h += `<path d="${G.burnL}" fill="${U('hf')}"/><path d="${G.burnR}" fill="${U('hf')}"/>`;
-    if (hs === 'bun') h += `<circle cx="200" cy="52" r="30" fill="${U('bun')}"/><path d="M178 54 C182 34 218 32 222 52 C216 42 190 42 186 58" stroke="${H[0]}" stroke-width="2.5" fill="none" opacity=".45"/><path d="M128 150 C122 170 126 186 134 196 M272 150 C278 170 274 186 266 196" stroke="${H[1]}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+    if (hs === 'bun') h += `<circle cx="200" cy="32" r="17" fill="${U('bun')}"/><path d="M188 32 C190 21 210 20 212 31 C208 25 194 25 191 34" stroke="${H[0]}" stroke-width="1.5" fill="none" opacity=".45"/><path d="M160 98 C157 110 159 120 164 126 M240 98 C243 110 241 120 236 126" stroke="${H[1]}" stroke-width="1.8" fill="none" stroke-linecap="round"/>`;
     h += `<path d="${front}" fill="${U('hf')}"/>`;
-    if (hs === 'bun') h += `<path d="M150 104 C170 86 200 80 230 84 M140 122 C160 100 190 92 220 92" stroke="${H[0]}" stroke-width="1.6" fill="none" opacity=".3"/>`;
+    if (hs === 'bun') h += `<path d="M172 70 C184 60 200 56 218 59 M164 84 C176 70 194 64 212 64" stroke="${H[0]}" stroke-width="1" fill="none" opacity=".3"/>`;
     else {
       const T = hs === 'short' ? TIPS.short : TIPS.long;
-      h += T.slice(1, -1).map(t => `<path d="M${(200 + (t[0] - 200) * .3).toFixed(1)} 66 Q${(200 + (t[0] - 200) * .78).toFixed(1)} ${t[1] - 34} ${t[0]} ${t[1] - 3}" stroke="${H[0]}" stroke-width="1.6" fill="none" opacity=".35"/>`).join('');
-      if (hs !== 'short') h += `<path d="M136 150 C130 180 132 206 140 228 M264 150 C270 180 268 206 260 228" stroke="${H[0]}" stroke-width="1.6" fill="none" opacity=".3"/>`;
+      h += T.slice(1, -1).map(t => `<path d="M${(200 + (t[0] - 200) * .3).toFixed(1)} 40 Q${(200 + (t[0] - 200) * .8).toFixed(1)} ${t[1] - 20} ${t[0]} ${t[1] - 2}" stroke="${H[0]}" stroke-width="1" fill="none" opacity=".35"/>`).join('');
     }
-    const ry0 = hs === 'bun' ? 86 : 80;
+    const ry0 = hs === 'bun' ? 52 : 46;
     let ring = '';
-    for (let x = 138, i = 0; x <= 262; x += 9, i++){ if (i % 4 === 3) continue; const y = ry0 + Math.pow((x - 200) / 70, 2) * 22; ring += `<path d="M${x} ${(y - 6).toFixed(1)} Q${x + 3.4} ${(y + 1).toFixed(1)} ${x + .6} ${(y + 9).toFixed(1)} Q${x - 2.8} ${(y + 1).toFixed(1)} ${x} ${(y - 6).toFixed(1)} Z"/>`; }
-    h += `<path d="M138 ${ry0 + 17} Q200 ${ry0 - 10} 262 ${ry0 + 17}" stroke="${H[3]}" stroke-width="10" fill="none" opacity=".24"${blur(2)}/><g fill="${H[3]}" opacity=".8">${ring}</g>`;
-    h += `<path d="M150 113 C158 107 170 106 180 109 M220 109 C230 106 242 107 250 113" stroke="${H[0]}" stroke-width="3.2" fill="none" stroke-linecap="round" opacity=".75"/>`;
-    // accessory
+    for (let x = 166, i = 0; x <= 234; x += 5, i++){ if (i % 4 === 3) continue; const y = ry0 + Math.pow((x - 200) / 40, 2) * 12; ring += `<path d="M${x} ${(y - 3.5).toFixed(1)} Q${x + 2} ${(y + .5).toFixed(1)} ${x + .3} ${(y + 5).toFixed(1)} Q${x - 1.6} ${(y + .5).toFixed(1)} ${x} ${(y - 3.5).toFixed(1)} Z"/>`; }
+    h += `<path d="M166 ${ry0 + 9} Q200 ${ry0 - 6} 234 ${ry0 + 9}" stroke="${H[3]}" stroke-width="6" fill="none" opacity=".24"${blur(2)}/><g fill="${H[3]}" opacity=".8">${ring}</g>`;
+    h += `<path d="M171 75 C176 71 184 70 190 72 M210 72 C216 70 224 71 229 75" stroke="${H[0]}" stroke-width="${p.soft ? 2.4 : 1.8}" fill="none" stroke-linecap="round" opacity=".8"/>`;
+    // accessory, drawn in the original head space and mapped onto the teen head
     const ac = p.accColor;
-    if (p.acc === 'beret') h += `<path d="${G.beret}" fill="${ink}" opacity=".25" transform="translate(0 8)"${blur(4)}/><path d="${G.beret}" fill="${U('acc')}"/><path d="M150 88 C172 98 240 104 284 86" stroke="${dk(ac, .25)}" stroke-width="2.5" fill="none" opacity=".6"/><path d="M226 37 C224 28 232 24 238 29 C236 34 232 37 226 37 Z" fill="${dk(ac, .2)}"/><ellipse cx="184" cy="54" rx="20" ry="8" fill="#fff" opacity=".35" transform="rotate(-12 184 54)"${blur(2)}/>`;
-    if (p.acc === 'cloche') h += `<path d="M118 106 C114 50 150 20 200 20 C250 20 286 50 282 106 C250 96 150 96 118 106 Z" fill="${U('acc')}"/><path d="M120 86 C160 76 240 76 280 86 L281 100 C240 90 160 90 119 100 Z" fill="#e6c272"/><path d="M104 110 C136 92 264 92 296 110 C266 122 134 122 104 110 Z" fill="${dk(ac, .1)}"/><path d="M110 109 C140 96 260 96 290 109" stroke="${lt(ac, .4)}" stroke-width="2" fill="none" opacity=".7"/><g transform="translate(252 88)"><circle r="9" fill="#fff4f0"/><circle r="4" fill="#e6c272"/></g><ellipse cx="170" cy="40" rx="22" ry="9" fill="#fff" opacity=".3" transform="rotate(-15 170 40)"${blur(2)}/>`;
-    if (p.acc === 'paille') h += `<path d="M148 70 C148 40 172 28 200 28 C228 28 252 40 252 70 Z" fill="${U('straw')}"/><path d="M148 58 C180 52 220 52 252 58 L252 70 L148 70 Z" fill="${ac}"/><path d="M84 78 C118 56 282 56 316 78 C294 96 106 96 84 78 Z" fill="${U('straw')}"/><path d="M100 80 C130 66 270 66 300 80 M116 84 C140 74 260 74 284 84" stroke="#b8904a" stroke-width="1" fill="none" opacity=".5"/>${bow(254, 64, .7, ac)}`;
-    if (p.acc === 'fiocco') h += bow(262, 86, 1.6, ac);
+    let a = '';
+    if (p.acc === 'beret') a = `<path d="${G.beret}" fill="${ink}" opacity=".25" transform="translate(0 8)"${blur(8)}/><path d="${G.beret}" fill="${U('acc')}"/><path d="M150 88 C172 98 240 104 284 86" stroke="${dk(ac, .25)}" stroke-width="2.5" fill="none" opacity=".6"/><path d="M226 37 C224 28 232 24 238 29 C236 34 232 37 226 37 Z" fill="${dk(ac, .2)}"/><ellipse cx="184" cy="54" rx="20" ry="8" fill="#fff" opacity=".35" transform="rotate(-12 184 54)"${blur(4)}/>`;
+    if (p.acc === 'cloche') a = `<path d="M118 106 C114 50 150 20 200 20 C250 20 286 50 282 106 C250 96 150 96 118 106 Z" fill="${U('acc')}"/><path d="M120 86 C160 76 240 76 280 86 L281 100 C240 90 160 90 119 100 Z" fill="#e6c272"/><path d="M104 110 C136 92 264 92 296 110 C266 122 134 122 104 110 Z" fill="${dk(ac, .1)}"/><path d="M110 109 C140 96 260 96 290 109" stroke="${lt(ac, .4)}" stroke-width="2" fill="none" opacity=".7"/><g transform="translate(252 88)"><circle r="9" fill="#fff4f0"/><circle r="4" fill="#e6c272"/></g><ellipse cx="170" cy="40" rx="22" ry="9" fill="#fff" opacity=".3" transform="rotate(-15 170 40)"${blur(4)}/>`;
+    if (p.acc === 'paille') a = `<path d="M148 70 C148 40 172 28 200 28 C228 28 252 40 252 70 Z" fill="${U('straw')}"/><path d="M148 58 C180 52 220 52 252 58 L252 70 L148 70 Z" fill="${ac}"/><path d="M84 78 C118 56 282 56 316 78 C294 96 106 96 84 78 Z" fill="${U('straw')}"/><path d="M100 80 C130 66 270 66 300 80 M116 84 C140 74 260 74 284 84" stroke="#b8904a" stroke-width="1" fill="none" opacity=".5"/>${bow(254, 64, .7, ac)}`;
+    if (p.acc === 'fiocco') a = bow(262, 86, 1.6, ac);
+    if (a) h += `<g transform="translate(200 ${p.acc === 'paille' ? 86 : 82}) scale(${p.acc === 'paille' ? .52 : .5}) translate(-200 -140)">${a}</g>`;
     return d + b + h;
   }
 
@@ -1138,7 +1150,7 @@ td:first-child{font-family:var(--f-display); font-size:1.02rem; white-space:nowr
       : `<circle cx="80" cy="40" r="240" fill="url(#${uid}-lo)" style="mix-blend-mode:screen"/>`;
   }
   function card(o, uid, mode, vb, label){
-    return `<svg viewBox="${vb || '0 0 400 560'}" role="img" aria-label="${label}">${roomBg(uid + 'r', mode)}${character(o, uid)}${lightOver(uid + 'r', mode)}</svg>`;
+    return `<svg viewBox="${vb || '60 4 280 524'}" role="img" aria-label="${label}">${roomBg(uid + 'r', mode)}${character(o, uid)}${lightOver(uid + 'r', mode)}</svg>`;
   }
 
   /* ---------- art direction: lineup and expressions ---------- */
@@ -1146,7 +1158,7 @@ td:first-child{font-family:var(--f-display); font-size:1.02rem; white-space:nowr
   $('l2').innerHTML = card(ODETTE, 'l2', 'day', null, 'Madame Odette');
   $('l3').innerHTML = card(YANNICK, 'l3', 'day', null, 'Yannick');
   $('l4').innerHTML = card(INES, 'l4', 'day', null, 'Inès');
-  ['smile', 'happy', 'surprised', 'wink'].forEach((ex, i) => { $('e' + (i + 1)).innerHTML = card({expr:ex, cup:false}, 'ex' + i, 'day', '100 20 200 210', 'Espressione'); });
+  ['smile', 'happy', 'surprised', 'wink'].forEach((ex, i) => { $('e' + (i + 1)).innerHTML = card({expr:ex, cup:false}, 'ex' + i, 'day', '140 20 120 128', 'Espressione'); });
   $('sc-odette').innerHTML = character(ODETTE, 'so');
 
   /* ---------- helpers for chips ---------- */
@@ -1295,7 +1307,7 @@ td:first-child{font-family:var(--f-display); font-size:1.02rem; white-space:nowr
     $('reaction').innerHTML = '<span class="who">' + c.name + '</span> · ' + msg;
   }
   function renderAvatar(){
-    $('avatar-stage').innerHTML = card(look({cup:false}), 'av', av.light, '0 10 400 530', 'Anteprima del personaggio');
+    $('avatar-stage').innerHTML = card(look({cup:false}), 'av', av.light, '60 4 280 524', 'Anteprima del personaggio');
     $('sc-barista').innerHTML = character(look({expr:'smile'}), 'sb');
     renderThumbs();
     score();
@@ -1329,7 +1341,7 @@ td:first-child{font-family:var(--f-display); font-size:1.02rem; white-space:nowr
   function renderThumbs(){
     SHOP.forEach(it => {
       const o = it.kind === 'acc' ? look({acc:it.id, accColor:ACC_COLORS[it.id], cup:false}) : look({outfit:OUTFITS[it.id], cup:false});
-      $('thumb-' + it.id).innerHTML = card(o, 'th' + it.id, 'day', it.kind === 'acc' ? '84 6 232 232' : '92 214 216 216', 'Prova: ' + it.name);
+      $('thumb-' + it.id).innerHTML = card(o, 'th' + it.id, 'day', it.kind === 'acc' ? '138 4 124 124' : '105 142 190 190', 'Prova: ' + it.name);
     });
   }
   function renderShop(){
